@@ -36,6 +36,24 @@
             max-width: 600px;
             margin: 0 auto 25px auto;
         }
+
+        /* Bandeau d'information / Lancement prochain */
+        .notice-banner {
+            background-color: #e0f2fe;
+            border-left: 5px solid #0284c7;
+            color: #0369a1;
+            padding: 18px 25px;
+            margin: -25px auto 30px auto;
+            max-width: 800px;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-align: center;
+            font-size: 1.05rem;
+        }
+        .notice-banner strong {
+            color: #0c4a6e;
+        }
+
         .btn-primary {
             display: inline-block;
             background-color: #00d2ff;
@@ -54,7 +72,7 @@
         /* Conteneur principal */
         .container {
             max-width: 1000px;
-            margin: 50px auto;
+            margin: 40px auto;
             padding: 0 20px;
         }
 
@@ -127,17 +145,22 @@
     <header>
         <h1>JC-SolutiO</h1>
         <p>Accompagnement, coaching personnel et solutions sur mesure pour atteindre vos objectifs.</p>
-        <a href="#contact" class="btn-primary">Me contacter</a>
+        <a href="#notice" class="btn-primary">Ouverture prochaine</a>
     </header>
 
     <!-- Contenu principal -->
     <div class="container">
         
+        <!-- Bandeau d'information -->
+        <div id="notice" class="notice-banner">
+            <strong>Lancement prochain :</strong> Le site est actuellement en cours de finalisation. La prise de rendez-vous sera disponible très prochainement. Merci de votre patience !
+        </div>
+
         <!-- À propos -->
         <section class="about-section">
             <h2>Bienvenue chez JC-SolutiO</h2>
             <p>
-                Chaque parcours est unique. Que vous cherchiez un soutien personnalisé, des conseils stratégiques ou un accompagnement vers le changement, JC-SolutiO est là pour vous guider vers des solutions claires et adaptées à vos besoins.
+                Chaque parcours est unique. Que vous cherchiez un soutien personnalisé, des conseils stratégiques ou un accompagnement vers le changement, JC-SolutiO se prépare à vous guider vers des solutions claires et adaptées à vos besoins.
             </p>
         </section>
 
@@ -160,11 +183,11 @@
     </div>
 
     <!-- Pied de page / Contact -->
-    <footer id="contact">
-        <h3>Entrer en contact</h3>
-        <p>Vous avez des questions ou souhaitez planifier une rencontre ?</p>
+    <footer>
+        <h3>Restez à l'affût</h3>
+        <p>Suivez les mises à jour et l'ouverture officielle sur ma page Facebook.</p>
         <p style="margin-top: 10px;">
-            Suivez ma page sur <a href="https://www.facebook.com" target="_blank">Facebook</a>
+            Visiter la page <a href="https://www.facebook.com" target="_blank">Facebook</a>
         </p>
         
         <div class="copyright">
