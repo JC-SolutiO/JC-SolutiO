@@ -51,13 +51,36 @@
         h1 {
             color: var(--bleu-principal);
             font-size: 2.2rem;
-            margin: 0;
+            margin: 0 0 18px 0;
             line-height: 1.2;
         }
 
         .nom-marque {
             color: var(--rouge-accent);
             font-weight: 800;
+        }
+
+        /* Barre de navigation */
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--bleu-principal);
+            background-color: #eef4f8;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        nav a:hover {
+            background-color: var(--bleu-principal);
+            color: #ffffff;
         }
 
         .intro p {
@@ -90,14 +113,6 @@
             margin-top: 10px !important;
         }
 
-        h2 {
-            color: var(--bleu-principal);
-            font-size: 1.65rem;
-            margin-top: 40px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #dee2e6;
-        }
-
         footer {
             text-align: center;
             margin-top: 50px;
@@ -115,6 +130,9 @@
             h1 {
                 font-size: 1.75rem;
             }
+            nav {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -129,6 +147,12 @@
     <div class="conteneur">
         <header>
             <h1>Bienvenue chez <span class="nom-marque">JC-SolutiO</span></h1>
+            <nav>
+                <a href="services.html">Services offerts</a>
+                <a href="frais.html">Mes frais et ma garantie</a>
+                <a href="confidentialite.html">Engagement de confidentialité et exceptions</a>
+                <a href="reglement.html">Règlement des honoraires</a>
+            </nav>
         </header>
 
         <section class="intro">
@@ -138,19 +162,9 @@
 
             <div class="encadre-credo">
                 <p><strong>Mon crédo : La discrétion !</strong><br>
-                Voir la section <a href="#confidentialite">« Engagement de confidentialité et exceptions »</a>.</p>
+                Voir la section <a href="confidentialite.html">« Engagement de confidentialité et exceptions »</a>.</p>
                 <p class="note-ligne">À noter : Mes services sont offerts en ligne seulement.</p>
             </div>
-        </section>
-
-        <section id="services">
-            <h2>Services offerts</h2>
-            <p><em>(Détails des deux piliers d'accompagnement à venir...)</em></p>
-        </section>
-
-        <!-- L'ancre ci-dessous permettra au lien "Engagement de confidentialité et exceptions" de fonctionner dès que nous ajouterons la section -->
-        <section id="confidentialite" style="margin-top: 40px;">
-            <!-- Section confidentialité à intégrer à la prochaine étape -->
         </section>
 
         <footer>
