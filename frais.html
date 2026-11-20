@@ -8,18 +8,23 @@
         :root {
             --bleu-principal: #1b4965;
             --rouge-accent: #c1121f;
-            --fond-clair: #f8f9fa;
+            --fond-pastel: #e6f2fa;
             --texte-sombre: #212529;
             --gris-doux: #6c757d;
+            --fonte-texte: "Lucida Calligraphy", "Apple Chancery", cursive;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: var(--fonte-texte);
             line-height: 1.65;
             color: var(--texte-sombre);
-            background-color: var(--fond-clair);
+            background-color: var(--fond-pastel);
             margin: 0;
             padding: 0;
+        }
+
+        h1, h2, h3, .titre-site {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         /* Bandeau En construction (à retirer lors du lancement officiel) */
@@ -31,6 +36,7 @@
             padding: 12px 20px;
             font-weight: 600;
             font-size: 0.95rem;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         .conteneur {
@@ -49,22 +55,27 @@
         }
 
         .titre-site {
-            font-size: 1.4rem;
+            font-size: 2.2rem;
             font-weight: 800;
             color: var(--bleu-principal);
             text-decoration: none;
+            display: inline-block;
+            margin-bottom: 12px;
         }
 
         .titre-site span {
             color: var(--rouge-accent);
+            font-size: 2.2rem;
+            font-weight: 800;
         }
 
-        /* Barre de navigation */
+        /* Barre de navigation verticale */
         nav {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: flex-start;
             gap: 10px;
-            margin-top: 15px;
+            margin-top: 10px;
         }
 
         nav a {
@@ -106,7 +117,7 @@
         }
 
         .intro-humour {
-            font-size: 1.08rem;
+            font-size: 1.03rem;
             margin-bottom: 30px;
         }
 
@@ -125,7 +136,7 @@
             padding: 20px 24px;
             margin: 28px 0;
             border-radius: 0 6px 6px 0;
-            font-size: 1.05rem;
+            font-size: 1rem;
         }
 
         .encadre-info strong.titre-encadre {
@@ -141,7 +152,7 @@
             padding: 18px 24px;
             margin: 25px 0;
             border-radius: 0 6px 6px 0;
-            font-size: 1.05rem;
+            font-size: 1rem;
         }
 
         .retour-accueil {
@@ -173,8 +184,8 @@
             h1 {
                 font-size: 1.65rem;
             }
-            nav {
-                flex-direction: column;
+            .titre-site, .titre-site span {
+                font-size: 1.75rem;
             }
         }
     </style>
