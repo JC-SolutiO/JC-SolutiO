@@ -24,7 +24,7 @@
             padding: 0;
         }
 
-        h1, h2, h3, .titre-site {
+        h1, h2, h3, .titre-site, .encadre-credo, .note-bas-page {
             font-family: var(--fonte-originale);
         }
 
@@ -50,50 +50,70 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
         }
 
-        /* Disposition : logo + menu à gauche, texte aux 2/3 à droite */
-        .rangee-principale {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 35px;
-            border-bottom: 3px solid var(--bleu-principal);
-            padding-bottom: 25px;
-            margin-bottom: 30px;
+        /* Logo en haut à gauche */
+        .zone-logo {
+            margin-bottom: 20px;
         }
 
-        .colonne-gauche {
-            flex: 0 0 30%;
+        .logo-image {
+            max-width: 240px;
+            height: auto;
+            display: block;
+            border-radius: 6px;
+        }
+
+        /* Titre de bienvenue sur toute la largeur en dessous du logo */
+        .bandeau-bienvenue {
+            width: 100%;
+            box-sizing: border-box;
+            border-bottom: 3px solid var(--bleu-principal);
+            padding-bottom: 18px;
+            margin-bottom: 30px;
         }
 
         h1 {
             color: var(--bleu-principal);
-            font-size: 2.2rem;
-            margin: 0 0 18px 0;
+            font-size: 2.3rem;
+            margin: 0;
             line-height: 1.2;
         }
 
         .nom-marque {
             color: var(--rouge-accent);
             font-weight: 800;
-            font-size: 2.2rem;
+            font-size: 2.3rem;
         }
 
-        /* Barre de navigation verticale avec texte en noir */
+        /* Zone inférieure : 4 liens à gauche, texte équilibré à droite */
+        .rangee-basse {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .colonne-liens {
+            flex: 0 0 32%;
+        }
+
         nav {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            gap: 10px;
+            gap: 12px;
         }
 
         nav a {
             text-decoration: none;
             color: #000000;
             background-color: #eef4f8;
-            padding: 8px 14px;
+            padding: 10px 16px;
             border-radius: 6px;
             font-weight: 600;
             font-size: 0.95rem;
+            width: 100%;
+            box-sizing: border-box;
             transition: background-color 0.2s, color 0.2s;
         }
 
@@ -102,19 +122,19 @@
             color: #ffffff;
         }
 
-        /* Texte sur 2/3 de la largeur, balancé à droite */
-        .colonne-droite-texte {
-            flex: 0 0 66%;
-            margin-left: auto;
-            text-align: right;
+        .colonne-texte {
+            flex: 1;
+            display: flex;
+            align-items: center;
         }
 
         .intro p {
             font-size: 1.05rem;
             margin: 0;
+            text-align: justify;
         }
 
-        /* Encadré Mon crédo en pleine largeur */
+        /* Encadré Mon crédo en pleine largeur et fonte d'origine */
         .encadre-credo {
             width: 100%;
             box-sizing: border-box;
@@ -127,28 +147,29 @@
 
         .encadre-credo p {
             margin: 6px 0;
-            font-size: 1rem;
+            font-size: 1.05rem;
         }
 
         .encadre-credo a {
-            color: var(--bleu-principal);
+            color: #000000;
             font-weight: 600;
             text-decoration: underline;
         }
 
-        /* Police d'origine pour Services offerts en ligne seulement */
+        /* Indication du service en ligne tout en bas avec fonte d'origine */
         .note-bas-page {
             font-family: var(--fonte-originale);
             font-style: italic;
             color: var(--gris-doux);
             text-align: center;
             margin-top: 30px;
+            margin-bottom: 15px;
             font-size: 0.95rem;
         }
 
         footer {
             text-align: center;
-            margin-top: 25px;
+            margin-top: 20px;
             padding-top: 20px;
             border-top: 1px solid #dee2e6;
             color: var(--gris-doux);
@@ -156,15 +177,15 @@
         }
 
         @media (max-width: 800px) {
-            .rangee-principale {
+            .rangee-basse {
                 flex-direction: column;
                 gap: 25px;
             }
-            .colonne-gauche,
-            .colonne-droite-texte {
+            .colonne-liens {
                 flex: none;
                 width: 100%;
-                margin-left: 0;
+            }
+            .intro p {
                 text-align: left;
             }
         }
@@ -181,6 +202,9 @@
             h1, .nom-marque {
                 font-size: 1.75rem;
             }
+            .logo-image {
+                max-width: 190px;
+            }
         }
     </style>
 </head>
@@ -193,18 +217,25 @@
     <!-- FIN DU BANDEAU EN CONSTRUCTION -->
 
     <div class="conteneur">
-        <div class="rangee-principale">
-            <header class="colonne-gauche">
-                <h1>Bienvenue chez <span class="nom-marque">JC-SolutiO</span></h1>
+        <div class="zone-logo">
+            <img src="Logo JC-Solutio_2.jpeg" alt="Logo JC-SolutiO" class="logo-image">
+        </div>
+
+        <header class="bandeau-bienvenue">
+            <h1>Bienvenue chez <span class="nom-marque">JC-SolutiO</span></h1>
+        </header>
+
+        <div class="rangee-basse">
+            <aside class="colonne-liens">
                 <nav>
                     <a href="services.html">Services offerts</a>
                     <a href="frais.html">Mes frais et ma garantie</a>
                     <a href="confidentialite.html">Engagement de confidentialité et exceptions</a>
                     <a href="frais.html#reglement">Règlement des honoraires</a>
                 </nav>
-            </header>
+            </aside>
 
-            <section class="intro colonne-droite-texte">
+            <section class="intro colonne-texte">
                 <p>
                     Maintenant à la retraite, j'ai choisi de mettre mon expérience et mon savoir-faire au service du bien-être des autres. Doté d'un esprit analytique et profondément logique, j'excelle à remonter à la source des problèmes pour les résoudre efficacement. Mon rôle est de vous offrir ce regard neutre et structuré afin de démêler les situations complexes et de vous accompagner vers des décisions réfléchies et durables.
                 </p>
