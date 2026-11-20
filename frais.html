@@ -93,9 +93,16 @@
         h2 {
             color: var(--bleu-principal);
             font-size: 1.45rem;
-            margin-top: 35px;
+            margin-top: 38px;
             padding-bottom: 8px;
             border-bottom: 2px solid #eef4f8;
+        }
+
+        h3 {
+            color: var(--bleu-principal);
+            font-size: 1.15rem;
+            margin-top: 22px;
+            margin-bottom: 10px;
         }
 
         .intro-humour {
@@ -105,32 +112,41 @@
 
         ul {
             padding-left: 22px;
-            margin: 18px 0;
+            margin: 15px 0;
         }
 
         li {
             margin-bottom: 12px;
         }
 
-        .encadre-taxes {
+        .encadre-info {
             background-color: #f1f5f9;
             border-left: 5px solid var(--rouge-accent);
             padding: 20px 24px;
-            margin: 35px 0 20px 0;
+            margin: 28px 0;
             border-radius: 0 6px 6px 0;
             font-size: 1.05rem;
         }
 
-        .encadre-taxes strong.titre-encadre {
+        .encadre-info strong.titre-encadre {
             display: block;
             color: var(--bleu-principal);
             font-size: 1.12rem;
             margin-bottom: 8px;
         }
 
+        .encadre-paiement {
+            background-color: #eef4f8;
+            border-left: 5px solid var(--bleu-principal);
+            padding: 18px 24px;
+            margin: 25px 0;
+            border-radius: 0 6px 6px 0;
+            font-size: 1.05rem;
+        }
+
         .retour-accueil {
             display: inline-block;
-            margin-top: 25px;
+            margin-top: 30px;
             color: var(--bleu-principal);
             font-weight: 600;
             text-decoration: none;
@@ -178,7 +194,7 @@
                 <a href="services.html">Services offerts</a>
                 <a href="frais.html" class="actif">Mes frais et ma garantie</a>
                 <a href="confidentialite.html">Engagement de confidentialité et exceptions</a>
-                <a href="reglement.html">Règlement des honoraires</a>
+                <a href="frais.html#reglement">Règlement des honoraires</a>
             </nav>
         </header>
 
@@ -195,12 +211,36 @@
                 <li><strong>Déroulement d'une séance (1 heure) :</strong> Chaque bloc horaire comprend 50 minutes d'entretien individuel, suivies de 10 minutes consacrées à la mise à jour de votre dossier et à la préparation de notre prochaine rencontre.</li>
                 <li><strong>Modalités de paiement :</strong> Le règlement s'effectue immédiatement après la séance. Un reçu officiel vous est ensuite transmis par courriel.</li>
             </ul>
+
+            <div class="encadre-info">
+                <strong class="titre-encadre">Un avantage direct pour vous : aucune taxe ajoutée</strong>
+                <strong>JC-SolutiO</strong> est une entreprise individuelle à taille humaine, développée comme activité complémentaire (<em>side hustle</em>). Mon chiffre d'affaires demeurant sous le seuil de revenu annuel exigé par les autorités fiscales, je ne perçois ni TPS ni TVQ/TVH — une économie directe dont vous profitez pleinement.
+            </div>
         </section>
 
-        <div class="encadre-taxes">
-            <strong class="titre-encadre">Un avantage direct pour vous : aucune taxe ajoutée</strong>
-            <strong>JC-SolutiO</strong> est une entreprise individuelle à taille humaine, développée comme activité complémentaire (<em>side hustle</em>). Mon chiffre d'affaires demeurant sous le seuil de revenu annuel exigé par les autorités fiscales, je ne perçois ni TPS ni TVQ/TVH — une économie directe dont vous profitez pleinement.
-        </div>
+        <section id="reglement">
+            <h2>Règlement des honoraires</h2>
+            <div class="encadre-paiement">
+                Les paiements s'effectuent exclusivement par voie électronique (virement Interac / <em>e-Transfer</em>) à l'adresse suivante : <strong>jc@jc-solutio.ca</strong>.
+            </div>
+        </section>
+
+        <section>
+            <h2>Politique en cas d'insatisfaction ou de non-paiement</h2>
+
+            <h3>Ma philosophie : votre satisfaction avant tout</h3>
+            <p>
+                Mon objectif premier est de vous apporter une aide concrète et utile. Si mes conseils ont contribué à débloquer votre situation ou à éclairer votre réflexion, j'en suis ravi. En revanche, <strong>si vous n'êtes pas satisfait du service reçu, vous n'avez rien à payer.</strong>
+            </p>
+
+            <h3>Que se passe-t-il si une facture demeure impayée ?</h3>
+            <ul>
+                <li><strong>Aucune poursuite ni pénalité :</strong> Aucuns frais d'intérêt ni pénalité de retard ne sont jamais appliqués, et aucune démarche de recouvrement n'est entreprise.</li>
+                <li><strong>Inscription sur une liste interne (« liste jaune ») :</strong> L'adresse courriel associée à un solde impayé est simplement placée sur une liste interne réservée aux clients insatisfaits, afin d'éviter toute nouvelle prise de rendez-vous.</li>
+                <li><strong>Confidentialité absolue :</strong> Cette liste demeure strictement confidentielle. Les adresses qui y figurent ne sont jamais partagées, divulguées ni utilisées pour laisser un avis négatif.</li>
+                <li><strong>Possibilité de réactiver votre accès :</strong> Vous pouvez régler votre solde à votre rythme, en un ou plusieurs versements. Dès que la note est acquittée, votre adresse courriel est automatiquement retirée de la liste et vous pouvez de nouveau faire appel à mes services.</li>
+            </ul>
+        </section>
 
         <a href="index.html" class="retour-accueil">← Retour à l'accueil</a>
 
