@@ -3,197 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JC-SolutiO | Services de Coaching et Conseil</title>
+    <title>JC-SolutiO — Coaching et aide à la décision</title>
     <style>
-        /* Styles de base et typographie */
-        * {
-            box-sizing: border-box;
+        :root {
+            --bleu-principal: #1b4965;
+            --rouge-accent: #c1121f;
+            --fond-clair: #f8f9fa;
+            --texte-sombre: #212529;
+            --gris-doux: #6c757d;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.65;
+            color: var(--texte-sombre);
+            background-color: var(--fond-clair);
             margin: 0;
             padding: 0;
         }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: #333333;
-            background-color: #f8f9fa;
+
+        /* Bandeau En construction (à retirer lors du lancement officiel) */
+        .banniere-construction {
+            background-color: #fff3cd;
+            color: #664d03;
+            border-bottom: 2px solid #ffecb5;
+            text-align: center;
+            padding: 12px 20px;
+            font-weight: 600;
+            font-size: 0.95rem;
         }
 
-        /* En-tête / Hero */
+        .conteneur {
+            max-width: 850px;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 45px 50px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+        }
+
         header {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: #ffffff;
-            padding: 80px 20px;
-            text-align: center;
-        }
-        header h1 {
-            font-size: 2.8rem;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-        }
-        header p {
-            font-size: 1.25rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto 25px auto;
+            border-bottom: 3px solid var(--bleu-principal);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
         }
 
-        /* Bandeau d'information / Lancement prochain */
-        .notice-banner {
-            background-color: #e0f2fe;
-            border-left: 5px solid #0284c7;
-            color: #0369a1;
-            padding: 18px 25px;
-            margin: -25px auto 30px auto;
-            max-width: 800px;
-            border-radius: 6px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            text-align: center;
+        h1 {
+            color: var(--bleu-principal);
+            font-size: 2.2rem;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .nom-marque {
+            color: var(--rouge-accent);
+            font-weight: 800;
+        }
+
+        .intro p {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+
+        .encadre-credo {
+            background-color: #f1f5f9;
+            border-left: 5px solid var(--rouge-accent);
+            padding: 18px 22px;
+            margin: 25px 0 35px 0;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .encadre-credo p {
+            margin: 6px 0;
             font-size: 1.05rem;
         }
-        .notice-banner strong {
-            color: #0c4a6e;
-        }
 
-        .btn-primary {
-            display: inline-block;
-            background-color: #00d2ff;
-            color: #002b49;
-            font-weight: bold;
-            padding: 12px 30px;
-            border-radius: 25px;
-            text-decoration: none;
-            transition: transform 0.2s ease, background-color 0.2s ease;
-        }
-        .btn-primary:hover {
-            background-color: #80e5ff;
-            transform: translateY(-2px);
-        }
-
-        /* Conteneur principal */
-        .container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        /* Section À propos */
-        .about-section {
-            background: #ffffff;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            margin-bottom: 40px;
-            text-align: center;
-        }
-        .about-section h2 {
-            color: #1e3c72;
-            margin-bottom: 15px;
-        }
-
-        /* Grille des services */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-        .service-card {
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: transform 0.2s ease;
-        }
-        .service-card:hover {
-            transform: translateY(-4px);
-        }
-        .service-card h3 {
-            color: #1e3c72;
-            margin-bottom: 12px;
-        }
-
-        /* Section Contact / Pied de page */
-        footer {
-            background-color: #111827;
-            color: #9ca3af;
-            text-align: center;
-            padding: 40px 20px;
-            margin-top: 60px;
-        }
-        footer h3 {
-            color: #ffffff;
-            margin-bottom: 10px;
-        }
-        footer a {
-            color: #00d2ff;
-            text-decoration: none;
-        }
-        footer a:hover {
+        .encadre-credo a {
+            color: var(--bleu-principal);
+            font-weight: 600;
             text-decoration: underline;
         }
-        .copyright {
-            margin-top: 25px;
-            font-size: 0.85rem;
-            border-top: 1px solid #1f2937;
+
+        .note-ligne {
+            font-style: italic;
+            color: var(--gris-doux);
+            margin-top: 10px !important;
+        }
+
+        h2 {
+            color: var(--bleu-principal);
+            font-size: 1.65rem;
+            margin-top: 40px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
             padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+            color: var(--gris-doux);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .conteneur {
+                margin: 15px;
+                padding: 25px 20px;
+            }
+            h1 {
+                font-size: 1.75rem;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- En-tête principal -->
-    <header>
-        <h1>JC-SolutiO</h1>
-        <p>Accompagnement, coaching personnel et solutions sur mesure pour atteindre vos objectifs.</p>
-        <a href="#notice" class="btn-primary">Ouverture prochaine</a>
-    </header>
-
-    <!-- Contenu principal -->
-    <div class="container">
-        
-        <!-- Bandeau d'information -->
-        <div id="notice" class="notice-banner">
-            <strong>Lancement prochain :</strong> Le site est actuellement en cours de finalisation. La prise de rendez-vous sera disponible très prochainement. Merci de votre patience !
-        </div>
-
-        <!-- À propos -->
-        <section class="about-section">
-            <h2>Bienvenue chez JC-SolutiO</h2>
-            <p>
-                Chaque parcours est unique. Que vous cherchiez un soutien personnalisé, des conseils stratégiques ou un accompagnement vers le changement, JC-SolutiO se prépare à vous guider vers des solutions claires et adaptées à vos besoins.
-            </p>
-        </section>
-
-        <!-- Services -->
-        <section class="services-grid">
-            <div class="service-card">
-                <h3>Coaching Personnel</h3>
-                <p>Un accompagnement individuel pour clarifier vos objectifs, surmonter les obstacles et développer votre plein potentiel.</p>
-            </div>
-            <div class="service-card">
-                <h3>Conseil & Orientation</h3>
-                <p>Des conseils pratiques et une écoute attentive pour vous aider à prendre des décisions éclairées dans vos projets.</p>
-            </div>
-            <div class="service-card">
-                <h3>Solutions Sur Mesure</h3>
-                <p>Un suivi personnalisé et des stratégies adaptées spécifiquement à votre réalité et à vos défis au quotidien.</p>
-            </div>
-        </section>
-
+    <!-- DÉBUT DU BANDEAU EN CONSTRUCTION -->
+    <div class="banniere-construction">
+        🚧 Site en cours de construction — Le contenu complet sera mis en ligne prochainement.
     </div>
+    <!-- FIN DU BANDEAU EN CONSTRUCTION -->
 
-    <!-- Pied de page / Contact -->
-    <footer>
-        <h3>Restez à l'affût</h3>
-        <p>Suivez les mises à jour et l'ouverture officielle sur ma page Facebook.</p>
-        <p style="margin-top: 10px;">
-            Visiter la page <a href="https://www.facebook.com" target="_blank">Facebook</a>
-        </p>
-        
-        <div class="copyright">
-            &copy; 2026 JC-SolutiO. Tous droits réservés.
-        </div>
-    </footer>
+    <div class="conteneur">
+        <header>
+            <h1>Bienvenue chez <span class="nom-marque">JC-SolutiO</span></h1>
+        </header>
+
+        <section class="intro">
+            <p>
+                Maintenant à la retraite, j'ai choisi de mettre mon expérience et mon savoir-faire au service du bien-être des autres. Doté d'un esprit analytique et profondément logique, j'excelle à remonter à la source des problèmes pour les résoudre efficacement. Mon rôle est de vous offrir ce regard neutre et structuré afin de démêler les situations complexes et de vous accompagner vers des décisions réfléchies et durables.
+            </p>
+
+            <div class="encadre-credo">
+                <p><strong>Mon crédo : La discrétion !</strong><br>
+                Voir la section <a href="#confidentialite">« Engagement de confidentialité et exceptions »</a>.</p>
+                <p class="note-ligne">À noter : Mes services sont offerts en ligne seulement.</p>
+            </div>
+        </section>
+
+        <section id="services">
+            <h2>Services offerts</h2>
+            <p><em>(Détails des deux piliers d'accompagnement à venir...)</em></p>
+        </section>
+
+        <!-- L'ancre ci-dessous permettra au lien "Engagement de confidentialité et exceptions" de fonctionner dès que nous ajouterons la section -->
+        <section id="confidentialite" style="margin-top: 40px;">
+            <!-- Section confidentialité à intégrer à la prochaine étape -->
+        </section>
+
+        <footer>
+            &copy; 2026 JC-SolutiO — Tous droits réservés.
+        </footer>
+    </div>
 
 </body>
 </html>
