@@ -8,18 +8,23 @@
         :root {
             --bleu-principal: #1b4965;
             --rouge-accent: #c1121f;
-            --fond-clair: #f8f9fa;
+            --fond-pastel: #e6f2fa;
             --texte-sombre: #212529;
             --gris-doux: #6c757d;
+            --fonte-texte: "Lucida Calligraphy", "Apple Chancery", cursive;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: var(--fonte-texte);
             line-height: 1.65;
             color: var(--texte-sombre);
-            background-color: var(--fond-clair);
+            background-color: var(--fond-pastel);
             margin: 0;
             padding: 0;
+        }
+
+        h1, h2, h3, .titre-site {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         /* Bandeau En construction (à retirer lors du lancement officiel) */
@@ -32,6 +37,7 @@
             font-weight: 800;
             font-size: 1.5rem;
             letter-spacing: 0.5px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         .conteneur {
@@ -59,12 +65,14 @@
         .nom-marque {
             color: var(--rouge-accent);
             font-weight: 800;
+            font-size: 2.2rem;
         }
 
-        /* Barre de navigation */
+        /* Barre de navigation verticale */
         nav {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: flex-start;
             gap: 10px;
         }
 
@@ -84,8 +92,13 @@
             color: #ffffff;
         }
 
+        /* Demi-largeur sur la première page */
+        .demi-largeur {
+            width: 50%;
+        }
+
         .intro p {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             margin-bottom: 25px;
         }
 
@@ -99,7 +112,7 @@
 
         .encadre-credo p {
             margin: 6px 0;
-            font-size: 1.05rem;
+            font-size: 1rem;
         }
 
         .encadre-credo a {
@@ -108,19 +121,27 @@
             text-decoration: underline;
         }
 
-        .note-ligne {
+        .note-bas-page {
             font-style: italic;
             color: var(--gris-doux);
-            margin-top: 10px !important;
+            text-align: center;
+            margin-top: 35px;
+            font-size: 0.95rem;
         }
 
         footer {
             text-align: center;
-            margin-top: 50px;
+            margin-top: 25px;
             padding-top: 20px;
             border-top: 1px solid #dee2e6;
             color: var(--gris-doux);
             font-size: 0.9rem;
+        }
+
+        @media (max-width: 750px) {
+            .demi-largeur {
+                width: 100%;
+            }
         }
 
         @media (max-width: 600px) {
@@ -132,11 +153,8 @@
                 margin: 15px;
                 padding: 25px 20px;
             }
-            h1 {
+            h1, .nom-marque {
                 font-size: 1.75rem;
-            }
-            nav {
-                flex-direction: column;
             }
         }
     </style>
@@ -160,7 +178,7 @@
             </nav>
         </header>
 
-        <section class="intro">
+        <section class="intro demi-largeur">
             <p>
                 Maintenant à la retraite, j'ai choisi de mettre mon expérience et mon savoir-faire au service du bien-être des autres. Doté d'un esprit analytique et profondément logique, j'excelle à remonter à la source des problèmes pour les résoudre efficacement. Mon rôle est de vous offrir ce regard neutre et structuré afin de démêler les situations complexes et de vous accompagner vers des décisions réfléchies et durables.
             </p>
@@ -168,9 +186,10 @@
             <div class="encadre-credo">
                 <p><strong>Mon crédo : La discrétion !</strong><br>
                 Voir la section <a href="confidentialite.html">« Engagement de confidentialité et exceptions »</a>.</p>
-                <p class="note-ligne">À noter : Mes services sont offerts en ligne seulement.</p>
             </div>
         </section>
+
+        <p class="note-bas-page">À noter : Mes services sont offerts en ligne seulement.</p>
 
         <footer>
             &copy; 2026 JC-SolutiO — Tous droits réservés.
