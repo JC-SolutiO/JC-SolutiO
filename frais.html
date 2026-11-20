@@ -11,6 +11,7 @@
             --fond-pastel: #e6f2fa;
             --texte-sombre: #212529;
             --gris-doux: #6c757d;
+            --fonte-originale: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             --fonte-texte: "Lucida Calligraphy", "Apple Chancery", cursive;
         }
 
@@ -23,24 +24,25 @@
             padding: 0;
         }
 
-        h1, h2, h3, .titre-site {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        h1, h2, h3, .titre-site, .encadre-info, .encadre-paiement, footer {
+            font-family: var(--fonte-originale);
         }
 
         /* Bandeau En construction (à retirer lors du lancement officiel) */
         .banniere-construction {
             background-color: #fff3cd;
             color: #664d03;
-            border-bottom: 2px solid #ffecb5;
+            border-bottom: 4px solid #f59e0b;
             text-align: center;
-            padding: 12px 20px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            padding: 24px 20px;
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: 0.5px;
+            font-family: var(--fonte-originale);
         }
 
         .conteneur {
-            max-width: 850px;
+            max-width: 960px;
             margin: 40px auto;
             background: #ffffff;
             padding: 45px 50px;
@@ -48,50 +50,77 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
         }
 
-        header {
+        /* Logo en haut à gauche */
+        .zone-logo {
+            margin-bottom: 20px;
+        }
+
+        .logo-image {
+            max-width: 240px;
+            height: auto;
+            display: block;
+            border-radius: 6px;
+        }
+
+        /* JC-SolutiO centré et même grosseur qu'à la page d'accueil */
+        .bandeau-marque {
+            width: 100%;
+            box-sizing: border-box;
             border-bottom: 3px solid var(--bleu-principal);
-            padding-bottom: 18px;
+            padding-bottom: 20px;
             margin-bottom: 25px;
+            text-align: center;
         }
 
         .titre-site {
-            font-size: 2.2rem;
+            font-size: 3rem;
             font-weight: 800;
             color: var(--bleu-principal);
             text-decoration: none;
             display: inline-block;
-            margin-bottom: 12px;
+            line-height: 1.2;
         }
 
         .titre-site span {
             color: var(--rouge-accent);
-            font-size: 2.2rem;
+            font-size: 3rem;
             font-weight: 800;
         }
 
-        /* Barre de navigation verticale */
+        header {
+            margin-bottom: 25px;
+        }
+
+        /* Barre de navigation verticale avec lettrage en noir */
         nav {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            gap: 10px;
+            gap: 12px;
             margin-top: 10px;
         }
 
-        nav a {
+        nav a, nav .page-courante {
             text-decoration: none;
-            color: var(--bleu-principal);
+            color: #000000;
             background-color: #eef4f8;
-            padding: 8px 14px;
+            padding: 10px 16px;
             border-radius: 6px;
             font-weight: 600;
             font-size: 0.95rem;
+            box-sizing: border-box;
             transition: background-color 0.2s, color 0.2s;
         }
 
-        nav a:hover, nav a.actif {
+        nav a:hover {
             background-color: var(--bleu-principal);
             color: #ffffff;
+        }
+
+        nav .page-courante {
+            background-color: #dce8f2;
+            font-weight: 700;
+            cursor: default;
         }
 
         h1 {
@@ -99,6 +128,7 @@
             font-size: 2rem;
             margin-top: 10px;
             margin-bottom: 25px;
+            text-align: center;
         }
 
         h2 {
@@ -158,7 +188,7 @@
         .retour-accueil {
             display: inline-block;
             margin-top: 30px;
-            color: var(--bleu-principal);
+            color: #000000;
             font-weight: 600;
             text-decoration: none;
         }
@@ -177,6 +207,10 @@
         }
 
         @media (max-width: 600px) {
+            .banniere-construction {
+                font-size: 1.2rem;
+                padding: 18px 15px;
+            }
             .conteneur {
                 margin: 15px;
                 padding: 25px 20px;
@@ -185,7 +219,10 @@
                 font-size: 1.65rem;
             }
             .titre-site, .titre-site span {
-                font-size: 1.75rem;
+                font-size: 2.2rem;
+            }
+            .logo-image {
+                max-width: 190px;
             }
         }
     </style>
@@ -194,16 +231,23 @@
 
     <!-- DÉBUT DU BANDEAU EN CONSTRUCTION -->
     <div class="banniere-construction">
-        🚧 Site en cours de construction — Le contenu complet sera mis en ligne prochainement.
+        🚧 SITE EN COURS DE CONSTRUCTION — Le contenu complet sera mis en ligne prochainement.
     </div>
     <!-- FIN DU BANDEAU EN CONSTRUCTION -->
 
     <div class="conteneur">
-        <header>
+        <div class="zone-logo">
+            <img src="Logo JC-Solutio_3.jpeg" alt="Logo JC-SolutiO" class="logo-image">
+        </div>
+
+        <div class="bandeau-marque">
             <a href="index.html" class="titre-site">JC-<span>SolutiO</span></a>
+        </div>
+
+        <header>
             <nav>
                 <a href="services.html">Services offerts</a>
-                <a href="frais.html" class="actif">Mes frais et ma garantie</a>
+                <span class="page-courante">Mes frais et ma garantie</span>
                 <a href="confidentialite.html">Engagement de confidentialité et exceptions</a>
                 <a href="frais.html#reglement">Règlement des honoraires</a>
             </nav>
