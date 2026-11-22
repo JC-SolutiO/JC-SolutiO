@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prendre un rendez-vous — JC-SolutiO</title>
+    <style>
+        :root {
+            --bleu-principal: #1b4965;
+            --rouge-accent: #c1121f;
+            --fond-pastel: #e6f2fa;
+            --texte-sombre: #212529;
+            --gris-doux: #6c757d;
+            --fonte-originale: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --fonte-texte: "Lucida Calligraphy", "Apple Chancery", cursive;
+            --fonte-times: "Times New Roman", Times, Georgia, serif;
+        }
+
+        body {
+            font-family: var(--fonte-texte);
+            line-height: 1.65;
+            color: var(--texte-sombre);
+            background-color: var(--fond-pastel);
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2, h3, .titre-site, .encadre-courriel, .encadre-annulation, .btn-copier, footer {
+            font-family: var(--fonte-originale);
+        }
+
+        /* Bandeau En construction (à retirer lors du lancement officiel) */
+        .banniere-construction {
+            background-color: #fff3cd;
+            color: #664d03;
+            border-bottom: 4px solid #f59e0b;
+            text-align: center;
+            padding: 24px 20px;
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: 0.5px;
+            font-family: var(--fonte-originale);
+        }
+
+        .conteneur {
+            max-width: 960px;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 45px 50px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Logo en haut à gauche */
+        .zone-logo {
+            margin-bottom: 20px;
+        }
+
+        .logo-image {
+            max-width: 240px;
+            height: auto;
+            display: block;
+            border-radius: 6px;
+        }
+
+        /* JC-SolutiO centré et en rouge comme sur les autres pages */
+        .bandeau-marque {
+            width: 100%;
+            box-sizing: border-box;
+            border-bottom: 3px solid var(--bleu-principal);
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .titre-site {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--rouge-accent);
+            text-decoration: none;
+            display: inline-block;
+            line-height: 1.2;
+        }
+
+        .titre-site span {
+            color: var(--rouge-accent);
+            font-size: 3rem;
+            font-weight: 800;
+        }
+
+        header {
+            margin-bottom: 25px;
+        }
+
+        /* Barre de navigation verticale avec lettrage en noir */
+        nav {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        nav a, nav .page-courante {
+            text-decoration: none;
+            color: #000000;
+            background-color: #eef4f8;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        nav a:hover {
+            background-color: var(--bleu-principal);
+            color: #ffffff;
+        }
+
+        nav .page-courante {
+            background-color: #dce8f2;
+            font-weight: 700;
+            cursor: default;
+        }
+
+        h1 {
+            color: var(--bleu-principal);
+            font-size: 2rem;
+            margin-top: 10px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .intro-rdv {
+            font-size: 1.03rem;
+            margin-bottom: 25px;
+        }
+
+        /* Zone du formulaire à copier-coller */
+        .actions-formulaire {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .btn-copier {
+            background-color: var(--bleu-principal);
+            color: #ffffff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-copier:hover {
+            background-color: #13364b;
+        }
+
+        .confirmation-copie {
+            font-family: var(--fonte-originale);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #198754;
+            display: none;
+        }
+
+        .zone-formulaire {
+            font-family: var(--fonte-times);
+            font-size: 1.05rem;
+            line-height: 1.6;
+            background-color: #f8fafc;
+            border: 2px dashed var(--bleu-principal);
+            border-radius: 8px;
+            padding: 25px 30px;
+            margin: 10px 0 30px 0;
+        }
+
+        .zone-formulaire p {
+            margin: 12px 0;
+        }
+
+        .titre-formulaire {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--bleu-principal);
+            border-bottom: 1px solid #cbd5e1;
+            padding-bottom: 6px;
+            margin-bottom: 16px;
+        }
+
+        .fin-formulaire {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--bleu-principal);
+            border-top: 1px solid #cbd5e1;
+            padding-top: 10px;
+            margin-top: 20px;
+        }
+
+        .liste-choix {
+            list-style-type: none;
+            padding-left: 15px;
+            margin: 8px 0 14px 0;
+        }
+
+        .liste-choix li {
+            margin-bottom: 6px;
+        }
+
+        .liste-horaire {
+            padding-left: 24px;
+            margin: 8px 0 14px 0;
+        }
+
+        .liste-horaire li {
+            margin-bottom: 6px;
+        }
+
+        .encadre-courriel {
+            background-color: #eef4f8;
+            border-left: 5px solid var(--bleu-principal);
+            padding: 18px 24px;
+            margin: 25px 0;
+            border-radius: 0 6px 6px 0;
+            font-size: 1.02rem;
+            text-align: center;
+        }
+
+        .encadre-courriel a {
+            color: var(--bleu-principal);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .encadre-courriel a:hover {
+            text-decoration: underline;
+        }
+
+        .encadre-annulation {
+            background-color: #f1f5f9;
+            border-left: 5px solid var(--rouge-accent);
+            padding: 18px 24px;
+            margin: 25px 0;
+            border-radius: 0 6px 6px 0;
+            font-size: 1rem;
+        }
+
+        .encadre-annulation strong.titre-annulation {
+            display: block;
+            color: var(--rouge-accent);
+            font-size: 1.08rem;
+            margin-bottom: 6px;
+        }
+
+        .retour-accueil {
+            display: inline-block;
+            margin-top: 30px;
+            text-decoration: none;
+            font-family: var(--fonte-originale);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--bleu-principal);
+            background-color: #eef4f8;
+            padding: 8px 14px;
+            border-radius: 6px;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .retour-accueil:hover {
+            background-color: var(--bleu-principal);
+            color: #ffffff;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+            color: var(--gris-doux);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .banniere-construction {
+                font-size: 1.2rem;
+                padding: 18px 15px;
+            }
+            .conteneur {
+                margin: 15px;
+                padding: 25px 20px;
+            }
+            h1 {
+                font-size: 1.65rem;
+            }
+            .titre-site, .titre-site span {
+                font-size: 2.2rem;
+            }
+            .logo-image {
+                max-width: 190px;
+            }
+            .zone-formulaire {
+                padding: 18px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- DÉBUT DU BANDEAU EN CONSTRUCTION -->
+    <div class="banniere-construction">
+        🚧 SITE EN COURS DE CONSTRUCTION — Le contenu complet sera mis en ligne prochainement.
+    </div>
+    <!-- FIN DU BANDEAU EN CONSTRUCTION -->
+
+    <div class="conteneur">
+        <div class="zone-logo">
+            <img src="Logo JC-Solutio_3.jpeg" alt="Logo JC-SolutiO" class="logo-image">
+        </div>
+
+        <div class="bandeau-marque">
+            <a href="index.html" class="titre-site">JC-<span>SolutiO</span></a>
+        </div>
+
+        <header>
+            <nav>
+                <a href="services.html">Services offerts</a>
+                <a href="frais.html">Mes frais et ma garantie</a>
+                <a href="confidentialite.html">Engagement de confidentialité et exceptions</a>
+                <a href="frais.html#reglement">Règlement des honoraires</a>
+                <span class="page-courante">Prendre un rendez-vous</span>
+            </nav>
+        </header>
+
+        <h1>Pour prendre un rendez-vous</h1>
+
+        <p class="intro-rdv">
+            Pour prendre un rendez-vous, veuillez compléter le formulaire suivant. Veuillez faire un copier-coller de la section <strong>Formulaire</strong> (<em>Copy and Paste</em>) dans le courriel que vous devez m’envoyer pour la prise de rendez-vous.
+        </p>
+
+        <div class="actions-formulaire">
+            <button type="button" class="btn-copier" onclick="copierFormulaire()">📋 Copier le formulaire dans le presse-papiers</button>
+            <span id="msg-copie" class="confirmation-copie">✓ Formulaire copié ! Il ne vous reste plus qu'à le coller dans votre courriel.</span>
+        </div>
+
+        <div id="texte-formulaire" class="zone-formulaire">
+            <div class="titre-formulaire">Formulaire :</div>
+
+            <p><strong>Nom :</strong> (donnez le nom que vous souhaitez que j’utilise pour nos communications)<br>
+            _________________________________________</p>
+
+            <p><strong>Distinction : Tutoiement ou vouvoiement.</strong> Veuillez indiquer votre choix !</p>
+            <ul class="liste-choix">
+                <li>☐ Je préfère le vouvoiement</li>
+                <li>☐ Je préfère le tutoiement</li>
+            </ul>
+
+            <p><strong>Adresse courriel</strong> à utiliser pour que je vous envoie les liens Google Meet, pour que je puisse communiquer avec vous si nécessaire, et que vous utiliserez pour régler ma facture par virement Interac (<em>e-Transfer</em>) si vous voulez demeurer « incognito » :<br>
+            _________________________________________________</p>
+
+            <p><strong>Horaire de rendez-vous :</strong><br>
+            Présentement, les rendez-vous sont disponibles les jeudis et dimanches aux heures suivantes :</p>
+            <ul class="liste-horaire">
+                <li><strong>Jeudi :</strong> 9 h à 10 h, midi à 13 h, et 15 h à 16 h</li>
+                <li><strong>Dimanche :</strong> midi à 13 h, et 15 h à 16 h</li>
+            </ul>
+
+            <p><strong>Date et heure choisies :</strong> ____________________________________</p>
+
+            <p><strong>Engagement de votre part :</strong><br>
+            J’ai lu et compris les informations des pages suivantes :</p>
+            <ul class="liste-choix">
+                <li>☑ « Engagement de confidentialité et exceptions »</li>
+                <li>☑ « Règlement des honoraires »</li>
+            </ul>
+
+            <div class="fin-formulaire">Fin du formulaire !</div>
+        </div>
+
+        <div class="encadre-courriel">
+            Pour prendre un rendez-vous, veuillez communiquer par courriel à :<br>
+            <a href="mailto:jc@jc-solutio.ca">jc@jc-solutio.ca</a>
+        </div>
+
+        <div class="encadre-annulation">
+            <strong class="titre-annulation">Politique d'annulation</strong>
+            Si vous devez annuler un rendez-vous, vous devez le faire au moins une heure avant l'heure prévue. À défaut d’annuler un rendez-vous avant ce délai, un montant de 20,00 $ vous sera facturé. La facture sera envoyée à l’adresse courriel que vous avez fournie.
+        </div>
+
+        <a href="index.html" class="retour-accueil">&larr; Retour à l'accueil</a>
+
+        <footer>
+            &copy; 2026 JC-SolutiO — Tous droits réservés.
+        </footer>
+    </div>
+
+    <script>
+        function copierFormulaire() {
+            const texte = document.getElementById("texte-formulaire").innerText;
+            navigator.clipboard.writeText(texte).then(function() {
+                const msg = document.getElementById("msg-copie");
+                msg.style.display = "inline";
+                setTimeout(function() {
+                    msg.style.display = "none";
+                }, 4000);
+            });
+        }
+    </script>
+
+</body>
+</html>
