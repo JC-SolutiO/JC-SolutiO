@@ -226,8 +226,16 @@
 
         .champ-verrouille {
             background-color: #e9ecef;
-            color: #495057;
+            color: #212529;
+            font-weight: bold;
             cursor: not-allowed;
+            border-color: #cbd5e1;
+        }
+
+        .champ-verrouille:focus {
+            outline: none;
+            border-color: #cbd5e1;
+            box-shadow: none;
         }
 
         .grille-rdv {
@@ -243,9 +251,13 @@
 
         .avertissement-jour {
             font-family: var(--fonte-originale);
-            font-size: 0.88rem;
-            color: var(--rouge-accent);
-            margin-top: 6px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #ffffff;
+            background-color: var(--rouge-accent);
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin-top: 12px;
             display: none;
         }
 
@@ -439,12 +451,11 @@
                 <div class="bloc-selecteur">
                     <label for="champ-date"><strong>Date choisie :</strong></label><br>
                     <input type="date" id="champ-date" class="champ-select" onchange="synchroniserDate()">
-                    <div id="avertissement-jour" class="avertissement-jour">Note : cette date ne correspond pas à un jeudi ou un dimanche.</div>
                 </div>
 
                 <div class="bloc-selecteur">
                     <label for="champ-journee"><strong>Journée (indiquée par défaut) :</strong></label><br>
-                    <input type="text" id="champ-journee" class="champ-select champ-verrouille" value="-- Choisir une date --" disabled readonly>
+                    <input type="text" id="champ-journee" class="champ-select champ-verrouille" value="-- Choisir une date --" readonly tabindex="-1">
                 </div>
 
                 <div class="bloc-selecteur">
@@ -453,6 +464,10 @@
                         <option value="">-- Choisir d'abord la date --</option>
                     </select>
                 </div>
+            </div>
+
+            <div id="avertissement-jour" class="avertissement-jour">
+                ⚠ Attention : la date sélectionnée n'est ni un jeudi ni un dimanche. Veuillez choisir une date correspondant à un jeudi ou un dimanche.
             </div>
 
             <p style="margin-top: 20px;"><strong>Engagement de votre part :</strong><br>
@@ -528,3 +543,88 @@
                 opt.textContent = plage;
                 selectPlage.appendChild(opt);
             });
+        }
+
+        function synchroniserDate() {
+            const valDate = document.getElementById("champ-date").value;
+            const champJournee = document.getElementById("champ-journee");
+            const avertissement = document.getElementById("avertissement-jour");
+            const selectPlage = document.getElementById("select-plage");
+
+            if (!valDate) {
+                champJournee.value = "-- Choisir une date --";
+                avertissement.style.display = "none";
+                selectPlage.innerHTML = '<option value="">-- Choisir d\'abord la date --</option>';
+                return;
+            }
+
+            const parties = valDate.split("-");
+            const dateObj = new Date(parseInt(parties[0], 10), parseInt(parties[1], 10) - 1, parseInt(parties[2], 10));
+            const nomJour = nomsJours[dateObj.getDay()];
+
+            champJournee.value = nomJour;
+
+            if (nomJour === "Jeudi" || nomJour === "Dimanche") {
+                avertissement.style.display = "none";
+                remplirPlages(nomJour);
+            } else {
+                avertissement.style.display = "block";
+                remplirPlages(null);
+            }
+        }
+
+        function caseTexte(id) {
+            return document.getElementById(id).checked ? "[X]" : "[ ]";
+        }
+
+        function valeurChamp(id) {
+            const val = document.getElementById(id).value.trim();
+            return val ? val : "_________________________________________";
+        }
+
+        function copierFormulaire() {
+            const dateChoisie = document.getElementById("champ-date").value || "________________";
+            const journeeChoisie = document.getElementById("champ-journee").value || "________________";
+            const plageChoisie = document.getElementById("select-plage").value || "________________";
+
+            const texte = [
+                "Formulaire :",
+                "",
+                "Nom : (donnez le nom que vous souhaitez que j’utilise pour nos communications)",
+                valeurChamp("champ-nom"),
+                "",
+                "Distinction : Tutoiement ou vouvoiement. Veuillez indiquer votre choix !",
+                caseTexte("rad-vouvoiement") + " Je préfère le vouvoiement",
+                caseTexte("rad-tutoiement") + " Je préfère le tutoiement",
+                "",
+                "Adresse courriel à utiliser pour que je vous envoie les liens Google Meet, pour que je puisse communiquer avec vous si nécessaire, et que vous utiliserez pour régler ma facture par virement Interac (e-Transfer) si vous voulez demeurer « incognito » :",
+                valeurChamp("champ-courriel"),
+                "",
+                "Horaire de rendez-vous :",
+                "Présentement, les rendez-vous sont disponibles les jeudis et dimanches aux heures suivantes :",
+                "- Jeudi : 9 h à 10 h, midi à 13 h, et 15 h à 16 h",
+                "- Dimanche : midi à 13 h, et 15 h à 16 h",
+                "",
+                "Date et heure choisies :",
+                "Date : " + dateChoisie + " | Journée : " + journeeChoisie + " | Plage : " + plageChoisie,
+                "",
+                "Engagement de votre part :",
+                "J’ai lu et compris les informations des pages suivantes, cochez les cases pour confirmer votre engagement :",
+                caseTexte("chk-confidentialite") + " « Engagement de confidentialité et exceptions »",
+                caseTexte("chk-reglement") + " « Règlement des honoraires »",
+                "",
+                "Fin du formulaire !"
+            ].join("\n");
+
+            navigator.clipboard.writeText(texte).then(function() {
+                const msg = document.getElementById("msg-copie");
+                msg.style.display = "inline";
+                setTimeout(function() {
+                    msg.style.display = "none";
+                }, 4000);
+            });
+        }
+    </script>
+
+</body>
+</html>
