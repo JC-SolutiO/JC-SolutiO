@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JC-SolutiO — Coaching et aide à la décision</title>
+    <title>JC-SolutiO — Prise de décision et coaching de vie</title>
     <style>
         :root {
             --bleu-principal: #1b4965;
@@ -24,7 +24,7 @@
             padding: 0;
         }
 
-        h1, h2, h3, .titre-site, .encadre-credo, .note-bas-page {
+        h1, h2, h3, .titre-site, .encadre-bienvenue, .encadre-disponibilite, footer {
             font-family: var(--fonte-originale);
         }
 
@@ -50,9 +50,19 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
         }
 
-        /* Logo en haut à gauche */
+        /* Rangée du haut : Logo à gauche, JC-SolutiO centré et en rouge */
+        .rangee-haut {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid var(--bleu-principal);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            gap: 20px;
+        }
+
         .zone-logo {
-            margin-bottom: 20px;
+            flex: 0 0 auto;
         }
 
         .logo-image {
@@ -62,52 +72,45 @@
             border-radius: 6px;
         }
 
-        /* Titre de bienvenue centré sur toute la largeur en dessous du logo */
-        .bandeau-bienvenue {
-            width: 100%;
-            box-sizing: border-box;
-            border-bottom: 3px solid var(--bleu-principal);
-            padding-bottom: 20px;
-            margin-bottom: 30px;
+        .bandeau-marque {
+            flex: 1;
             text-align: center;
         }
 
-        h1 {
-            color: var(--bleu-principal);
-            font-size: 2.2rem;
-            margin: 0;
-            line-height: 1.25;
-        }
-
-        .nom-marque {
-            color: var(--rouge-accent);
-            font-weight: 800;
+        .titre-site {
             font-size: 3rem;
+            font-weight: 800;
+            color: var(--rouge-accent);
+            text-decoration: none;
             display: inline-block;
-            margin-left: 6px;
+            line-height: 1.2;
         }
 
-        /* Zone inférieure : liens à gauche, texte équilibré à droite */
+        .titre-site span {
+            color: var(--rouge-accent);
+            font-size: 3rem;
+            font-weight: 800;
+        }
+
+        /* Rangée basse : Liens à gauche, texte de présentation à droite */
         .rangee-basse {
             display: flex;
             align-items: flex-start;
-            justify-content: space-between;
-            gap: 40px;
-            margin-bottom: 30px;
+            gap: 35px;
         }
 
         .colonne-liens {
-            flex: 0 0 32%;
+            flex: 0 0 260px;
         }
 
-         {
+        nav {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
             gap: 12px;
         }
 
-         a {
+        nav a {
             text-decoration: none;
             color: #000000;
             background-color: #eef4f8;
@@ -120,83 +123,51 @@
             transition: background-color 0.2s, color 0.2s;
         }
 
-         a:hover {
+        nav a:hover {
             background-color: var(--bleu-principal);
             color: #ffffff;
         }
 
-        .etiquette- {
-            color: #000000;
-            background-color: #eef4f8;
-            padding: 10px 16px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            width: 100%;
-            box-sizing: border-box;
-            cursor: default;
-        }
-
-        .colonne-texte {
+        .colonne-contenu {
             flex: 1;
-            display: flex;
-            align-items: center;
         }
 
-        .intro p {
-            font-size: 1.05rem;
-            margin: 0;
-            text-align: justify;
-        }
-
-        /* Encadré Mon crédo en pleine largeur et fonte d'origine */
-        .encadre-credo {
-            width: 100%;
-            box-sizing: border-box;
+        .encadre-bienvenue {
             background-color: #f1f5f9;
             border-left: 5px solid var(--rouge-accent);
-            padding: 18px 22px;
-            margin: 25px 0 30px 0;
+            padding: 20px 24px;
+            margin-bottom: 25px;
             border-radius: 0 6px 6px 0;
-        }
-
-        .encadre-credo p {
-            margin: 6px 0;
             font-size: 1.05rem;
         }
 
-        .encadre-credo a {
-            color: #000000;
-            font-weight: 600;
-            text-decoration: none;
+        p {
+            margin: 16px 0;
         }
 
-        .encadre-credo a:hover {
-            text-decoration: underline;
-        }
-
-        /* Indication du service en ligne tout en bas, non italique et bleu foncé */
-        .note-bas-page {
-            font-family: var(--fonte-originale);
-            font-style: normal;
-            font-weight: 600;
-            color: var(--bleu-principal);
-            text-align: center;
-            margin-top: 30px;
-            margin-bottom: 15px;
+        .encadre-disponibilite {
+            background-color: #eef4f8;
+            border-left: 5px solid var(--bleu-principal);
+            padding: 18px 24px;
+            margin: 25px 0;
+            border-radius: 0 6px 6px 0;
             font-size: 1rem;
         }
 
         footer {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 50px;
             padding-top: 20px;
             border-top: 1px solid #dee2e6;
             color: var(--gris-doux);
             font-size: 0.9rem;
         }
 
-        @media (max-width: 800px) {
+        @media (max-width: 768px) {
+            .rangee-haut {
+                flex-direction: column;
+                text-align: center;
+            }
             .rangee-basse {
                 flex-direction: column;
                 gap: 25px;
@@ -204,9 +175,6 @@
             .colonne-liens {
                 flex: none;
                 width: 100%;
-            }
-            .intro p {
-                text-align: left;
             }
         }
 
@@ -219,11 +187,8 @@
                 margin: 15px;
                 padding: 25px 20px;
             }
-            h1 {
-                font-size: 1.75rem;
-            }
-            .nom-marque {
-                font-size: 2.35rem;
+            .titre-site, .titre-site span {
+                font-size: 2.2rem;
             }
             .logo-image {
                 max-width: 190px;
@@ -240,13 +205,15 @@
     <!-- FIN DU BANDEAU EN CONSTRUCTION -->
 
     <div class="conteneur">
-        <div class="zone-logo">
-            <img src="Logo JC-Solutio_3.jpeg" alt="Logo JC-SolutiO" class="logo-image">
-        </div>
+        <div class="rangee-haut">
+            <div class="zone-logo">
+                <img src="Logo JC-Solutio_3.jpeg" alt="Logo JC-SolutiO" class="logo-image">
+            </div>
 
-        <header class="bandeau-bienvenue">
-            <h1>Bienvenue chez <span class="nom-marque">JC-SolutiO</span></h1>
-        </header>
+            <div class="bandeau-marque">
+                <a href="index.html" class="titre-site">JC-<span>SolutiO</span></a>
+            </div>
+        </div>
 
         <div class="rangee-basse">
             <aside class="colonne-liens">
@@ -260,19 +227,24 @@
                 </nav>
             </aside>
 
-            <section class="intro colonne-texte">
+            <main class="colonne-contenu">
+                <div class="encadre-bienvenue">
+                    Bienvenue chez <strong>JC-SolutiO</strong>, votre espace d'accompagnement pour éclairer vos choix et faire avancer vos projets en toute confiance.
+                </div>
+
                 <p>
-                    Maintenant à la retraite, j'ai choisi de mettre mon expérience et mon savoir-faire au service du bien-être des autres. Doté d'un esprit analytique et profondément logique, j'excelle à remonter à la source des problèmes pour les résoudre efficacement. Mon rôle est de vous offrir ce regard neutre et structuré afin de démêler les situations complexes et de vous accompagner vers des décisions réfléchies et durables.
+                    Que vous soyez confronté à une décision importante ou que vous souhaitiez retrouver de l'élan dans votre vie personnelle ou professionnelle, je vous offre un accompagnement structuré, confidentiel et entièrement centré sur vos besoins.
                 </p>
-            </section>
-        </div>
 
-        <div class="encadre-credo">
-            <p><strong>Mon crédo : La discrétion !</strong><br>
-            Voir la section <a href="confidentialite.html">« Engagement de confidentialité »</a>.</p>
-        </div>
+                <p>
+                    Vous pouvez explorer les différentes sections à gauche pour découvrir l'origine de <strong>JC-SolutiO</strong>, les services offerts, mes tarifs et ma garantie de satisfaction, mon engagement de confidentialité ainsi que les modalités pour prendre rendez-vous.
+                </p>
 
-        <p class="note-bas-page">À noter : Mes services sont offerts en ligne seulement.</p>
+                <div class="encadre-disponibilite">
+                    <strong>Consultations en ligne :</strong> Séances individuelles d'une heure (50 minutes d'entretien et 10 minutes de préparation de dossier), tenues par visioconférence en toute discrétion.
+                </div>
+            </main>
+        </div>
 
         <footer>
             &copy; 2026 JC-SolutiO — Tous droits réservés.
