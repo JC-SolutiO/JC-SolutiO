@@ -183,7 +183,7 @@
         }
 
         .zone-formulaire p {
-            margin: 12px 0;
+            margin: 14px 0;
         }
 
         .titre-formulaire {
@@ -204,14 +204,48 @@
             margin-top: 20px;
         }
 
+        .champ-texte {
+            font-family: var(--fonte-times);
+            font-size: 1.02rem;
+            width: 100%;
+            max-width: 480px;
+            padding: 7px 10px;
+            margin-top: 6px;
+            border: 1px solid #94a3b8;
+            border-radius: 4px;
+            background-color: #ffffff;
+            color: var(--texte-sombre);
+            box-sizing: border-box;
+        }
+
+        .champ-texte:focus {
+            outline: none;
+            border-color: var(--bleu-principal);
+            box-shadow: 0 0 0 2px rgba(27, 73, 101, 0.15);
+        }
+
         .liste-choix {
             list-style-type: none;
-            padding-left: 15px;
+            padding-left: 10px;
             margin: 8px 0 14px 0;
         }
 
         .liste-choix li {
-            margin-bottom: 6px;
+            margin-bottom: 8px;
+        }
+
+        .liste-choix label {
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .liste-choix input[type="checkbox"] {
+            width: 17px;
+            height: 17px;
+            cursor: pointer;
+            accent-color: var(--bleu-principal);
         }
 
         .liste-horaire {
@@ -341,28 +375,32 @@
         <h1>Pour prendre un rendez-vous</h1>
 
         <p class="intro-rdv">
-            Pour prendre un rendez-vous, veuillez compléter le formulaire suivant. Veuillez faire un copier-coller de la section <strong>Formulaire</strong> (<em>Copy and Paste</em>) dans le courriel que vous devez m’envoyer pour la prise de rendez-vous.
+            Pour prendre un rendez-vous, veuillez compléter le formulaire suivant directement sur cette page, puis faire un copier-coller de la section <strong>Formulaire</strong> (<em>Copy and Paste</em>) dans le courriel que vous devez m’envoyer pour la prise de rendez-vous.
         </p>
 
         <div class="actions-formulaire">
             <button type="button" class="btn-copier" onclick="copierFormulaire()">📋 Copier le formulaire dans le presse-papiers</button>
-            <span id="msg-copie" class="confirmation-copie">✓ Formulaire copié ! Il ne vous reste plus qu'à le coller dans votre courriel.</span>
+            <span id="msg-copie" class="confirmation-copie">✓ Formulaire copié avec vos réponses ! Il ne vous reste plus qu'à le coller dans votre courriel.</span>
         </div>
 
         <div id="texte-formulaire" class="zone-formulaire">
             <div class="titre-formulaire">Formulaire :</div>
 
-            <p><strong>Nom :</strong> (donnez le nom que vous souhaitez que j’utilise pour nos communications)<br>
-            _________________________________________</p>
+            <p>
+                <label for="champ-nom"><strong>Nom :</strong> (donnez le nom que vous souhaitez que j’utilise pour nos communications)</label><br>
+                <input type="text" id="champ-nom" class="champ-texte" placeholder="Votre nom ou prénom souhaité">
+            </p>
 
             <p><strong>Distinction : Tutoiement ou vouvoiement.</strong> Veuillez indiquer votre choix !</p>
             <ul class="liste-choix">
-                <li>☐ Je préfère le vouvoiement</li>
-                <li>☐ Je préfère le tutoiement</li>
+                <li><label><input type="checkbox" id="chk-vouvoiement"> Je préfère le vouvoiement</label></li>
+                <li><label><input type="checkbox" id="chk-tutoiement"> Je préfère le tutoiement</label></li>
             </ul>
 
-            <p><strong>Adresse courriel</strong> à utiliser pour que je vous envoie les liens Google Meet, pour que je puisse communiquer avec vous si nécessaire, et que vous utiliserez pour régler ma facture par virement Interac (<em>e-Transfer</em>) si vous voulez demeurer « incognito » :<br>
-            _________________________________________________</p>
+            <p>
+                <label for="champ-courriel"><strong>Adresse courriel</strong> à utiliser pour que je vous envoie les liens Google Meet, pour que je puisse communiquer avec vous si nécessaire, et que vous utiliserez pour régler ma facture par virement Interac (<em>e-Transfer</em>) si vous voulez demeurer « incognito » :</label><br>
+                <input type="text" id="champ-courriel" class="champ-texte" placeholder="exemple@courriel.com">
+            </p>
 
             <p><strong>Horaire de rendez-vous :</strong><br>
             Présentement, les rendez-vous sont disponibles les jeudis et dimanches aux heures suivantes :</p>
@@ -371,13 +409,16 @@
                 <li><strong>Dimanche :</strong> midi à 13 h, et 15 h à 16 h</li>
             </ul>
 
-            <p><strong>Date et heure choisies :</strong> ____________________________________</p>
+            <p>
+                <label for="champ-date-heure"><strong>Date et heure choisies :</strong></label><br>
+                <input type="text" id="champ-date-heure" class="champ-texte" placeholder="Ex. : Jeudi 26 novembre, 15 h à 16 h">
+            </p>
 
             <p><strong>Engagement de votre part :</strong><br>
             J’ai lu et compris les informations des pages suivantes :</p>
             <ul class="liste-choix">
-                <li>☑ « Engagement de confidentialité et exceptions »</li>
-                <li>☑ « Règlement des honoraires »</li>
+                <li><label><input type="checkbox" id="chk-confidentialite"> « Engagement de confidentialité et exceptions »</label></li>
+                <li><label><input type="checkbox" id="chk-reglement"> « Règlement des honoraires »</label></li>
             </ul>
 
             <div class="fin-formulaire">Fin du formulaire !</div>
@@ -401,8 +442,45 @@
     </div>
 
     <script>
+        function caseTexte(id) {
+            return document.getElementById(id).checked ? "[X]" : "[ ]";
+        }
+
+        function valeurChamp(id) {
+            const val = document.getElementById(id).value.trim();
+            return val ? val : "_________________________________________";
+        }
+
         function copierFormulaire() {
-            const texte = document.getElementById("texte-formulaire").innerText;
+            const texte = [
+                "Formulaire :",
+                "",
+                "Nom : (donnez le nom que vous souhaitez que j’utilise pour nos communications)",
+                valeurChamp("champ-nom"),
+                "",
+                "Distinction : Tutoiement ou vouvoiement. Veuillez indiquer votre choix !",
+                caseTexte("chk-vouvoiement") + " Je préfère le vouvoiement",
+                caseTexte("chk-tutoiement") + " Je préfère le tutoiement",
+                "",
+                "Adresse courriel à utiliser pour que je vous envoie les liens Google Meet, pour que je puisse communiquer avec vous si nécessaire, et que vous utiliserez pour régler ma facture par virement Interac (e-Transfer) si vous voulez demeurer « incognito » :",
+                valeurChamp("champ-courriel"),
+                "",
+                "Horaire de rendez-vous :",
+                "Présentement, les rendez-vous sont disponibles les jeudis et dimanches aux heures suivantes :",
+                "- Jeudi : 9 h à 10 h, midi à 13 h, et 15 h à 16 h",
+                "- Dimanche : midi à 13 h, et 15 h à 16 h",
+                "",
+                "Date et heure choisies :",
+                valeurChamp("champ-date-heure"),
+                "",
+                "Engagement de votre part :",
+                "J’ai lu et compris les informations des pages suivantes :",
+                caseTexte("chk-confidentialite") + " « Engagement de confidentialité et exceptions »",
+                caseTexte("chk-reglement") + " « Règlement des honoraires »",
+                "",
+                "Fin du formulaire !"
+            ].join("\n");
+
             navigator.clipboard.writeText(texte).then(function() {
                 const msg = document.getElementById("msg-copie");
                 msg.style.display = "inline";
