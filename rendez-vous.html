@@ -204,7 +204,7 @@
             margin-top: 20px;
         }
 
-        .champ-texte {
+        .champ-texte, .champ-select {
             font-family: var(--fonte-times);
             font-size: 1.02rem;
             width: 100%;
@@ -218,10 +218,29 @@
             box-sizing: border-box;
         }
 
-        .champ-texte:focus {
+        .champ-texte:focus, .champ-select:focus {
             outline: none;
             border-color: var(--bleu-principal);
             box-shadow: 0 0 0 2px rgba(27, 73, 101, 0.15);
+        }
+
+        .grille-rdv {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .bloc-selecteur {
+            flex: 1 1 210px;
+        }
+
+        .avertissement-jour {
+            font-family: var(--fonte-originale);
+            font-size: 0.88rem;
+            color: var(--rouge-accent);
+            margin-top: 6px;
+            display: none;
         }
 
         .liste-choix {
@@ -241,7 +260,8 @@
             gap: 8px;
         }
 
-        .liste-choix input[type="checkbox"] {
+        .liste-choix input[type="checkbox"],
+        .liste-choix input[type="radio"] {
             width: 17px;
             height: 17px;
             cursor: pointer;
@@ -393,8 +413,8 @@
 
             <p><strong>Distinction : Tutoiement ou vouvoiement.</strong> Veuillez indiquer votre choix !</p>
             <ul class="liste-choix">
-                <li><label><input type="checkbox" id="chk-vouvoiement"> Je préfère le vouvoiement</label></li>
-                <li><label><input type="checkbox" id="chk-tutoiement"> Je préfère le tutoiement</label></li>
+                <li><label><input type="radio" name="distinction" id="rad-vouvoiement" value="Je préfère le vouvoiement"> Je préfère le vouvoiement</label></li>
+                <li><label><input type="radio" name="distinction" id="rad-tutoiement" value="Je préfère le tutoiement"> Je préfère le tutoiement</label></li>
             </ul>
 
             <p>
@@ -409,13 +429,32 @@
                 <li><strong>Dimanche :</strong> midi à 13 h, et 15 h à 16 h</li>
             </ul>
 
-            <p>
-                <label for="champ-date-heure"><strong>Date et heure choisies :</strong></label><br>
-                <input type="text" id="champ-date-heure" class="champ-texte" placeholder="Ex. : Jeudi 26 novembre, 15 h à 16 h">
-            </p>
+            <div class="grille-rdv">
+                <div class="bloc-selecteur">
+                    <label for="champ-date"><strong>Date choisie :</strong></label><br>
+                    <input type="date" id="champ-date" class="champ-select" onchange="verifierJourCalendrier()">
+                    <div id="avertissement-jour" class="avertissement-jour">Note : cette date ne correspond pas à un jeudi ou un dimanche.</div>
+                </div>
 
-            <p><strong>Engagement de votre part :</strong><br>
-            J’ai lu et compris les informations des pages suivantes :</p>
+                <div class="bloc-selecteur">
+                    <label for="select-journee"><strong>Journée :</strong></label><br>
+                    <select id="select-journee" class="champ-select" onchange="mettreAJourPlages()">
+                        <option value="">-- Choisir une journée --</option>
+                        <option value="Jeudi">Jeudi</option>
+                        <option value="Dimanche">Dimanche</option>
+                    </select>
+                </div>
+
+                <div class="bloc-selecteur">
+                    <label for="select-plage"><strong>Plage horaire :</strong></label><br>
+                    <select id="select-plage" class="champ-select">
+                        <option value="">-- Choisir d'abord la journée --</option>
+                    </select>
+                </div>
+            </div>
+
+            <p style="margin-top: 20px;"><strong>Engagement de votre part :</strong><br>
+            J’ai lu et compris les informations des pages suivantes, cochez les cases pour confirmer votre engagement :</p>
             <ul class="liste-choix">
                 <li><label><input type="checkbox" id="chk-confidentialite"> « Engagement de confidentialité et exceptions »</label></li>
                 <li><label><input type="checkbox" id="chk-reglement"> « Règlement des honoraires »</label></li>
@@ -442,6 +481,71 @@
     </div>
 
     <script>
+        const plagesParJournee = {
+            "Jeudi": [
+                "9 h à 10 h",
+                "Midi à 13 h",
+                "15 h à 16 h"
+            ],
+            "Dimanche": [
+                "Midi à 13 h",
+                "15 h à 16 h"
+            ]
+        };
+
+        function mettreAJourPlages() {
+            const journee = document.getElementById("select-journee").value;
+            const selectPlage = document.getElementById("select-plage");
+            selectPlage.innerHTML = "";
+
+            if (!journee || !plagesParJournee[journee]) {
+                const opt = document.createElement("option");
+                opt.value = "";
+                opt.textContent = "-- Choisir d'abord la journée --";
+                selectPlage.appendChild(opt);
+                return;
+            }
+
+            const optDefaut = document.createElement("option");
+            optDefaut.value = "";
+            optDefaut.textContent = "-- Choisir une plage horaire --";
+            selectPlage.appendChild(optDefaut);
+
+            plagesParJournee[journee].forEach(function(plage) {
+                const opt = document.createElement("option");
+                opt.value = plage;
+                opt.textContent = plage;
+                selectPlage.appendChild(opt);
+            });
+        }
+
+        function verifierJourCalendrier() {
+            const valDate = document.getElementById("champ-date").value;
+            const avertissement = document.getElementById("avertissement-jour");
+            const selectJournee = document.getElementById("select-journee");
+
+            if (!valDate) {
+                avertissement.style.display = "none";
+                return;
+            }
+
+            const parties = valDate.split("-");
+            const dateObj = new Date(parties[0], parties[1] - 1, parties[2]);
+            const jourSemaine = dateObj.getDay(); // 0 = Dimanche, 4 = Jeudi
+
+            if (jourSemaine === 4) {
+                selectJournee.value = "Jeudi";
+                mettreAJourPlages();
+                avertissement.style.display = "none";
+            } else if (jourSemaine === 0) {
+                selectJournee.value = "Dimanche";
+                mettreAJourPlages();
+                avertissement.style.display = "none";
+            } else {
+                avertissement.style.display = "block";
+            }
+        }
+
         function caseTexte(id) {
             return document.getElementById(id).checked ? "[X]" : "[ ]";
         }
@@ -452,6 +556,10 @@
         }
 
         function copierFormulaire() {
+            const dateChoisie = document.getElementById("champ-date").value || "________________";
+            const journeeChoisie = document.getElementById("select-journee").value || "________________";
+            const plageChoisie = document.getElementById("select-plage").value || "________________";
+
             const texte = [
                 "Formulaire :",
                 "",
@@ -459,8 +567,8 @@
                 valeurChamp("champ-nom"),
                 "",
                 "Distinction : Tutoiement ou vouvoiement. Veuillez indiquer votre choix !",
-                caseTexte("chk-vouvoiement") + " Je préfère le vouvoiement",
-                caseTexte("chk-tutoiement") + " Je préfère le tutoiement",
+                caseTexte("rad-vouvoiement") + " Je préfère le vouvoiement",
+                caseTexte("rad-tutoiement") + " Je préfère le tutoiement",
                 "",
                 "Adresse courriel à utiliser pour que je vous envoie les liens Google Meet, pour que je puisse communiquer avec vous si nécessaire, et que vous utiliserez pour régler ma facture par virement Interac (e-Transfer) si vous voulez demeurer « incognito » :",
                 valeurChamp("champ-courriel"),
@@ -471,10 +579,10 @@
                 "- Dimanche : midi à 13 h, et 15 h à 16 h",
                 "",
                 "Date et heure choisies :",
-                valeurChamp("champ-date-heure"),
+                "Date : " + dateChoisie + " | Journée : " + journeeChoisie + " | Plage : " + plageChoisie,
                 "",
                 "Engagement de votre part :",
-                "J’ai lu et compris les informations des pages suivantes :",
+                "J’ai lu et compris les informations des pages suivantes, cochez les cases pour confirmer votre engagement :",
                 caseTexte("chk-confidentialite") + " « Engagement de confidentialité et exceptions »",
                 caseTexte("chk-reglement") + " « Règlement des honoraires »",
                 "",
