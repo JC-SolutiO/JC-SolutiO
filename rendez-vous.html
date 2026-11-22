@@ -224,6 +224,12 @@
             box-shadow: 0 0 0 2px rgba(27, 73, 101, 0.15);
         }
 
+        .champ-verrouille {
+            background-color: #e9ecef;
+            color: #495057;
+            cursor: not-allowed;
+        }
+
         .grille-rdv {
             display: flex;
             flex-wrap: wrap;
@@ -432,23 +438,19 @@
             <div class="grille-rdv">
                 <div class="bloc-selecteur">
                     <label for="champ-date"><strong>Date choisie :</strong></label><br>
-                    <input type="date" id="champ-date" class="champ-select" onchange="verifierJourCalendrier()">
+                    <input type="date" id="champ-date" class="champ-select" onchange="synchroniserDate()">
                     <div id="avertissement-jour" class="avertissement-jour">Note : cette date ne correspond pas à un jeudi ou un dimanche.</div>
                 </div>
 
                 <div class="bloc-selecteur">
-                    <label for="select-journee"><strong>Journée :</strong></label><br>
-                    <select id="select-journee" class="champ-select" onchange="mettreAJourPlages()">
-                        <option value="">-- Choisir une journée --</option>
-                        <option value="Jeudi">Jeudi</option>
-                        <option value="Dimanche">Dimanche</option>
-                    </select>
+                    <label for="champ-journee"><strong>Journée (indiquée par défaut) :</strong></label><br>
+                    <input type="text" id="champ-journee" class="champ-select champ-verrouille" value="-- Choisir une date --" disabled readonly>
                 </div>
 
                 <div class="bloc-selecteur">
                     <label for="select-plage"><strong>Plage horaire :</strong></label><br>
                     <select id="select-plage" class="champ-select">
-                        <option value="">-- Choisir d'abord la journée --</option>
+                        <option value="">-- Choisir d'abord la date --</option>
                     </select>
                 </div>
             </div>
@@ -493,15 +495,24 @@
             ]
         };
 
-        function mettreAJourPlages() {
-            const journee = document.getElementById("select-journee").value;
+        const nomsJours = [
+            "Dimanche",
+            "Lundi",
+            "Mardi",
+            "Mercredi",
+            "Jeudi",
+            "Vendredi",
+            "Samedi"
+        ];
+
+        function remplirPlages(journee) {
             const selectPlage = document.getElementById("select-plage");
             selectPlage.innerHTML = "";
 
-            if (!journee || !plagesParJournee[journee]) {
+            if (!plagesParJournee[journee]) {
                 const opt = document.createElement("option");
                 opt.value = "";
-                opt.textContent = "-- Choisir d'abord la journée --";
+                opt.textContent = "-- Aucune plage disponible pour ce jour --";
                 selectPlage.appendChild(opt);
                 return;
             }
@@ -517,87 +528,3 @@
                 opt.textContent = plage;
                 selectPlage.appendChild(opt);
             });
-        }
-
-        function verifierJourCalendrier() {
-            const valDate = document.getElementById("champ-date").value;
-            const avertissement = document.getElementById("avertissement-jour");
-            const selectJournee = document.getElementById("select-journee");
-
-            if (!valDate) {
-                avertissement.style.display = "none";
-                return;
-            }
-
-            const parties = valDate.split("-");
-            const dateObj = new Date(parties[0], parties[1] - 1, parties[2]);
-            const jourSemaine = dateObj.getDay(); // 0 = Dimanche, 4 = Jeudi
-
-            if (jourSemaine === 4) {
-                selectJournee.value = "Jeudi";
-                mettreAJourPlages();
-                avertissement.style.display = "none";
-            } else if (jourSemaine === 0) {
-                selectJournee.value = "Dimanche";
-                mettreAJourPlages();
-                avertissement.style.display = "none";
-            } else {
-                avertissement.style.display = "block";
-            }
-        }
-
-        function caseTexte(id) {
-            return document.getElementById(id).checked ? "[X]" : "[ ]";
-        }
-
-        function valeurChamp(id) {
-            const val = document.getElementById(id).value.trim();
-            return val ? val : "_________________________________________";
-        }
-
-        function copierFormulaire() {
-            const dateChoisie = document.getElementById("champ-date").value || "________________";
-            const journeeChoisie = document.getElementById("select-journee").value || "________________";
-            const plageChoisie = document.getElementById("select-plage").value || "________________";
-
-            const texte = [
-                "Formulaire :",
-                "",
-                "Nom : (donnez le nom que vous souhaitez que j’utilise pour nos communications)",
-                valeurChamp("champ-nom"),
-                "",
-                "Distinction : Tutoiement ou vouvoiement. Veuillez indiquer votre choix !",
-                caseTexte("rad-vouvoiement") + " Je préfère le vouvoiement",
-                caseTexte("rad-tutoiement") + " Je préfère le tutoiement",
-                "",
-                "Adresse courriel à utiliser pour que je vous envoie les liens Google Meet, pour que je puisse communiquer avec vous si nécessaire, et que vous utiliserez pour régler ma facture par virement Interac (e-Transfer) si vous voulez demeurer « incognito » :",
-                valeurChamp("champ-courriel"),
-                "",
-                "Horaire de rendez-vous :",
-                "Présentement, les rendez-vous sont disponibles les jeudis et dimanches aux heures suivantes :",
-                "- Jeudi : 9 h à 10 h, midi à 13 h, et 15 h à 16 h",
-                "- Dimanche : midi à 13 h, et 15 h à 16 h",
-                "",
-                "Date et heure choisies :",
-                "Date : " + dateChoisie + " | Journée : " + journeeChoisie + " | Plage : " + plageChoisie,
-                "",
-                "Engagement de votre part :",
-                "J’ai lu et compris les informations des pages suivantes, cochez les cases pour confirmer votre engagement :",
-                caseTexte("chk-confidentialite") + " « Engagement de confidentialité et exceptions »",
-                caseTexte("chk-reglement") + " « Règlement des honoraires »",
-                "",
-                "Fin du formulaire !"
-            ].join("\n");
-
-            navigator.clipboard.writeText(texte).then(function() {
-                const msg = document.getElementById("msg-copie");
-                msg.style.display = "inline";
-                setTimeout(function() {
-                    msg.style.display = "none";
-                }, 4000);
-            });
-        }
-    </script>
-
-</body>
-</html>
