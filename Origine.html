@@ -6,174 +6,241 @@
     <title>Origine du nom JC-SolutiO — JC-SolutiO</title>
     <style>
         :root {
+            --bleu-principal: #1b4965;
+            --rouge-accent: #c1121f;
             --fond-pastel: #e6f2fa;
-            --bleu-fonce: #1b4965;
-            --texte-noir: #000000;
-            --fonte-times: "Times New Roman", Times, Georgia, serif;
-            --fonte-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --texte-sombre: #212529;
+            --gris-doux: #6c757d;
+            --fonte-originale: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --fonte-texte: "Lucida Calligraphy", "Apple Chancery", cursive;
         }
 
         body {
+            font-family: var(--fonte-texte);
+            line-height: 1.65;
+            color: var(--texte-sombre);
             background-color: var(--fond-pastel);
             margin: 0;
             padding: 0;
-            line-height: 1.65;
+        }
+
+        h1, h2, h3, .titre-site, .encadre-origine, footer {
+            font-family: var(--fonte-originale);
+        }
+
+        /* Bandeau En construction (à retirer lors du lancement officiel) */
+        .banniere-construction {
+            background-color: #fff3cd;
+            color: #664d03;
+            border-bottom: 4px solid #f59e0b;
+            text-align: center;
+            padding: 24px 20px;
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: 0.5px;
+            font-family: var(--fonte-originale);
         }
 
         .conteneur {
-            max-width: 900px;
-            margin: 35px auto;
-            background-color: #ffffff;
-            padding: 40px 50px;
+            max-width: 960px;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 45px 50px;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
         }
 
-        .barre-retour {
+        /* Logo en haut à gauche */
+        .zone-logo {
+            margin-bottom: 20px;
+        }
+
+        .logo-image {
+            max-width: 240px;
+            height: auto;
+            display: block;
+            border-radius: 6px;
+        }
+
+        /* JC-SolutiO centré et en rouge */
+        .bandeau-marque {
+            width: 100%;
+            box-sizing: border-box;
+            border-bottom: 3px solid var(--bleu-principal);
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .titre-site {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--rouge-accent);
+            text-decoration: none;
+            display: inline-block;
+            line-height: 1.2;
+        }
+
+        .titre-site span {
+            color: var(--rouge-accent);
+            font-size: 3rem;
+            font-weight: 800;
+        }
+
+        header {
             margin-bottom: 25px;
         }
 
-        .bouton-retour {
-            display: inline-block;
+        /* Barre de navigation verticale avec lettrage en noir */
+        nav {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        nav a, nav .page-courante {
             text-decoration: none;
-            font-family: var(--fonte-ui);
+            color: #000000;
+            background-color: #eef4f8;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        nav a:hover {
+            background-color: var(--bleu-principal);
+            color: #ffffff;
+        }
+
+        nav .page-courante {
+            background-color: #dce8f2;
+            font-weight: 700;
+            cursor: default;
+        }
+
+        h1 {
+            color: var(--bleu-principal);
+            font-size: 2rem;
+            margin-top: 10px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        p {
+            margin: 16px 0;
+        }
+
+        .encadre-origine {
+            background-color: #f1f5f9;
+            border-left: 5px solid var(--bleu-principal);
+            padding: 18px 24px;
+            margin: 25px 0;
+            border-radius: 0 6px 6px 0;
+            font-size: 1rem;
+        }
+
+        .retour-accueil {
+            display: inline-block;
+            margin-top: 30px;
+            text-decoration: none;
+            font-family: var(--fonte-originale);
             font-size: 0.95rem;
             font-weight: 600;
-            color: var(--bleu-fonce);
+            color: var(--bleu-principal);
             background-color: #eef4f8;
             padding: 8px 14px;
             border-radius: 6px;
             transition: background-color 0.2s, color 0.2s;
         }
 
-        .bouton-retour:hover {
-            background-color: var(--bleu-fonce);
+        .retour-accueil:hover {
+            background-color: var(--bleu-principal);
             color: #ffffff;
-        }
-
-        /* Premier texte : fonte Times, couleur noire, non italique */
-        .texte-times-noir {
-            font-family: var(--fonte-times);
-            color: var(--texte-noir);
-            font-style: normal;
-            font-size: 1.1rem;
-        }
-
-        .texte-times-noir p {
-            margin: 0 0 16px 0;
-        }
-
-        .titre-section-times {
-            font-family: var(--fonte-times);
-            color: var(--texte-noir);
-            font-style: normal;
-            font-size: 1.65rem;
-            font-weight: bold;
-            margin: 0 0 18px 0;
-        }
-
-        /* Deuxième texte : intégralement en italique et de couleur bleu foncé */
-        .texte-italique-bleu {
-            font-style: italic;
-            color: var(--bleu-fonce);
-            font-size: 1.08rem;
-            margin: 25px 0 30px 0;
-            padding: 20px 24px;
-            background-color: #f4f9fd;
-            border-left: 4px solid var(--bleu-fonce);
-            border-radius: 0 6px 6px 0;
-        }
-
-        .texte-italique-bleu p,
-        .texte-italique-bleu ul {
-            margin: 0 0 14px 0;
-        }
-
-        .texte-italique-bleu ul {
-            padding-left: 22px;
-        }
-
-        .texte-italique-bleu li {
-            margin-bottom: 6px;
-        }
-
-        /* Conclusion : fonte Times, couleur noire, non italique, centrée et sans gras */
-        .conclusion-times-noir {
-            font-family: var(--fonte-times);
-            color: var(--texte-noir);
-            font-style: normal;
-            font-size: 1.15rem;
-            font-weight: normal;
-            text-align: center;
-            margin-top: 25px;
         }
 
         footer {
             text-align: center;
-            margin-top: 35px;
-            padding-top: 18px;
+            margin-top: 50px;
+            padding-top: 20px;
             border-top: 1px solid #dee2e6;
-            color: #6c757d;
-            font-family: var(--fonte-ui);
+            color: var(--gris-doux);
             font-size: 0.9rem;
         }
 
         @media (max-width: 600px) {
+            .banniere-construction {
+                font-size: 1.2rem;
+                padding: 18px 15px;
+            }
             .conteneur {
                 margin: 15px;
                 padding: 25px 20px;
+            }
+            h1 {
+                font-size: 1.65rem;
+            }
+            .titre-site, .titre-site span {
+                font-size: 2.2rem;
+            }
+            .logo-image {
+                max-width: 190px;
             }
         }
     </style>
 </head>
 <body>
+
+    <!-- DÉBUT DU BANDEAU EN CONSTRUCTION -->
+    <div class="banniere-construction">
+        🚧 SITE EN COURS DE CONSTRUCTION — Le contenu complet sera mis en ligne prochainement.
+    </div>
+    <!-- FIN DU BANDEAU EN CONSTRUCTION -->
+
     <div class="conteneur">
-        <div class="barre-retour">
-            <a href="index.html" class="bouton-retour">&larr; Retour à l'accueil</a>
+        <div class="zone-logo">
+            <img src="Logo JC-Solutio_3.jpeg" alt="Logo JC-SolutiO" class="logo-image">
         </div>
 
-        <section class="texte-times-noir">
-            <h1 class="titre-section-times">Pourquoi j’ai choisi le nom JC-SolutiO</h1>
-            <p>Au départ, je voulais appeler mon entreprise JC-Solutions. Mais après une recherche rapide, j’ai constaté que le nom était déjà enregistré au Québec, en Ontario et aux États-Unis.</p>
-            <p>J’ai alors eu l’idée d’utiliser JC-SolutiO ! Vérification faite, j’en suis le premier utilisateur. Le O majuscule à la fin évite que les lecteurs lisent inconsciemment « Solution ».</p>
-            <p>Par la suite, j’ai fait une recherche sur le mot « solutio », et ce que j’ai découvert m’a convaincu de le conserver :</p>
-        </section>
+        <div class="bandeau-marque">
+            <a href="index.html" class="titre-site">JC-<span>SolutiO</span></a>
+        </div>
 
-        <section class="texte-italique-bleu">
-            <p>Le nom Solutio possède une sonorité élégante et une signification intéressante, particulièrement si on l'envisage pour une entreprise, une pratique professionnelle ou un service-conseil.</p>
-            <p>1. Origine et signification<br>
-            Solutio est un mot latin qui signifie:</p>
-            <ul>
-                <li>Solution : le fait de résoudre un problème.</li>
-                <li>Dénouement : le fait de dénouer une situation complexe.</li>
-                <li>Libération : le fait de délier, de dégager ou de libérer de quelque chose.</li>
-                <li>Dissolution : le fait de séparer ou de défaire ce qui était lié.</li>
-            </ul>
-            <p>Le mot vient du verbe latin solvere, qui signifie délier, dénouer, libérer ou résoudre.C'est également la racine étymologique du mot français « solution ».</p>
-            <p>2. La portée symbolique du nom<br>
-            Solutio évoque des idées intéressantes :<br>
-            La résolution<br>
-            Trouver une issue, apporter une réponse à une difficulté ou résoudre une situation problématique.<br>
-            Le dénouement<br>
-            Permettre à une personne de sortir d'une situation qui semble bloquée, compliquée ou sans issue.<br>
-            La clarté<br>
-            Passer de la confusion à la compréhension, de l'incertitude à une vision plus claire.<br>
-            La libération<br>
-            Se dégager de contraintes, de difficultés ou de situations qui empêchent d'avancer.</p>
-            <p>3. Quelques associations</p>
-            <ul>
-                <li>Solutio – Vers une solution</li>
-                <li>Solutio – Comprendre pour avancer</li>
-                <li>Solutio – Dénouer les situations complexes</li>
-                <li>Solutio – Clarté, compréhension, résolution</li>
-                <li>Solutio – Une voie vers le changement</li>
-            </ul>
-            <p>4. Une nuance linguistique intéressante<br>
-            En latin, solutio est un substantif féminin. Il désigne l'action de délier ou de résoudre, mais aussi le résultat de cette action.<br>
-            Il y a donc une distinction intéressante entre solutio et le mot français « solution » : Solutio évoque non seulement le résultat recherché, mais également le processus qui permet d'y parvenir.</p>
-        </section>
+        <header>
+            <nav>
+                <span class="page-courante">Origine du nom JC-SolutiO</span>
+                <a href="services.html">Services offerts</a>
+                <a href="frais.html">Mes frais et ma garantie</a>
+                <a href="confidentialite.html">Engagement de confidentialité et exceptions</a>
+                <a href="frais.html#reglement">Règlement des honoraires</a>
+                <a href="rendez-vous.html">Prendre un rendez-vous</a>
+            </nav>
+        </header>
 
-        <p class="conclusion-times-noir">Ce descriptif ne peut pas mieux résumer les intentions de mon entreprise !</p>
+        <h1>Origine du nom JC-SolutiO</h1>
+
+        <p>
+            Le nom <strong>JC-SolutiO</strong> réunit mes initiales et l'idée même d'une démarche constructive orientée vers des issues concrètes et réfléchies.
+        </p>
+
+        <div class="encadre-origine">
+            Le <strong>O</strong> majuscule à la fin de <strong>SolutiO</strong> évoque l'ouverture, l'écoute et la recherche d'horizons nouveaux lorsqu'une situation semble figée ou complexe.
+        </div>
+
+        <p>
+            Mon objectif n'est pas de décider à votre place, mais de vous aider à mettre de l'ordre dans vos options afin que vous puissiez choisir la voie qui vous convient le mieux.
+        </p>
+
+        <a href="index.html" class="retour-accueil">&larr; Retour à l'accueil</a>
 
         <footer>
-            &copy; 2026 JC-SolutiO —
+            &copy; 2026 JC-SolutiO — Tous droits réservés.
+        </footer>
+    </div>
+
+</body>
+</html>
