@@ -13,6 +13,7 @@
             --gris-doux: #6c757d;
             --fonte-originale: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             --fonte-texte: "Lucida Calligraphy", "Apple Chancery", cursive;
+            --fonte-times: "Times New Roman", Times, Georgia, serif;
         }
 
         body {
@@ -100,7 +101,7 @@
             margin-top: 10px;
         }
 
-        nav a, nav .page-courante, nav .lien-inactif {
+        nav a, nav .page-courante {
             text-decoration: none;
             color: #000000;
             background-color: #eef4f8;
@@ -110,7 +111,6 @@
             font-size: 0.95rem;
             box-sizing: border-box;
             transition: background-color 0.2s, color 0.2s;
-            cursor: default;
         }
 
         nav a:hover {
@@ -145,6 +145,11 @@
             font-size: 1.15rem;
             margin-top: 22px;
             margin-bottom: 10px;
+        }
+
+        /* Bloc en fonte Times */
+        .bloc-times, .bloc-times h3, .bloc-times ul, .bloc-times li {
+            font-family: var(--fonte-times);
         }
 
         .intro-humour {
@@ -189,13 +194,20 @@
         .retour-accueil {
             display: inline-block;
             margin-top: 30px;
-            color: #000000;
-            font-weight: 600;
             text-decoration: none;
+            font-family: var(--fonte-originale);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--bleu-principal);
+            background-color: #eef4f8;
+            padding: 8px 14px;
+            border-radius: 6px;
+            transition: background-color 0.2s, color 0.2s;
         }
 
         .retour-accueil:hover {
-            text-decoration: underline;
+            background-color: var(--bleu-principal);
+            color: #ffffff;
         }
 
         footer {
@@ -250,7 +262,7 @@
                 <a href="services.html">Services offerts</a>
                 <span class="page-courante">Mes frais et ma garantie</span>
                 <a href="confidentialite.html">Engagement de confidentialité et exceptions</a>
-                <span class="lien-inactif">Règlement des honoraires</span>
+                <a href="#reglement">Règlement des honoraires</a>
             </nav>
         </header>
 
@@ -273,7 +285,8 @@
                 <strong>JC-SolutiO</strong> est une entreprise individuelle à taille humaine, développée comme activité complémentaire (<em>side hustle</em>). Mon chiffre d'affaires demeurant sous le seuil de revenu annuel exigé par les autorités fiscales, je ne perçois ni TPS ni TVQ/TVH — une économie directe dont vous profitez pleinement.
             </div>
         </section>
-<section>
+
+        <section>
             <h2>Politique en cas d'insatisfaction ou de non-paiement</h2>
 
             <div class="encadre-info">
@@ -281,15 +294,30 @@
                 Mon objectif premier est de vous apporter une aide concrète et utile. Si mes conseils ont contribué à débloquer votre situation ou à éclairer votre réflexion, j'en suis ravi. En revanche, si vous n'êtes pas satisfait du service reçu, vous n'avez rien à payer.
             </div>
 
-            <h3>Que se passe-t-il si une facture demeure impayée ?</h3>
-            <ul>
-                <li><strong>Aucune poursuite ni pénalité :</strong> Aucuns frais d'intérêt ni pénalité de retard ne sont jamais appliqués, et aucune démarche de recouvrement n'est entreprise.</li>
-                <li><strong>Inscription sur une liste interne (« liste jaune ») :</strong> L'adresse courriel associée à un solde impayé est simplement placée sur une liste interne réservée aux clients insatisfaits, afin d'éviter toute nouvelle prise de rendez-vous.</li>
-                <li><strong>Confidentialité absolue :</strong> Cette liste demeure strictement confidentielle. Les adresses qui y figurent ne sont jamais partagées, divulguées ni utilisées pour laisser un avis négatif.</li>
-                <li><strong>Possibilité de réactiver votre accès :</strong> Vous pouvez régler votre solde à votre rythme, en un ou plusieurs versements. Dès que la note est acquittée, votre adresse courriel est automatiquement retirée de la liste et vous pouvez de nouveau faire appel à mes services.</li>
-            </ul>
+            <div class="bloc-times">
+                <h3>Que se passe-t-il si une facture demeure impayée ?</h3>
+                <ul>
+                    <li><strong>Aucune poursuite ni pénalité :</strong> Aucuns frais d'intérêt ni pénalité de retard ne sont jamais appliqués, et aucune démarche de recouvrement n'est entreprise.</li>
+                    <li><strong>Inscription sur une liste interne (« liste jaune ») :</strong> L'adresse courriel associée à un solde impayé est simplement placée sur une liste interne réservée aux clients insatisfaits, afin d'éviter toute nouvelle prise de rendez-vous.</li>
+                    <li><strong>Confidentialité absolue :</strong> Cette liste demeure strictement confidentielle. Les adresses qui y figurent ne sont jamais partagées, divulguées ni utilisées pour laisser un avis négatif.</li>
+                    <li><strong>Possibilité de réactiver votre accès :</strong> Vous pouvez régler votre solde à votre rythme, en un ou plusieurs versements. Dès que la note est acquittée, votre adresse courriel est automatiquement retirée de la liste et vous pouvez de nouveau faire appel à mes services.</li>
+                </ul>
+            </div>
         </section>
+
         <section id="reglement">
             <h2>Règlement des honoraires</h2>
             <div class="encadre-paiement">
-                Les paiements s'effectuent exclusivement par voie électronique (virement Interac / <em>e-Transfer</em>) à l'adresse suivante
+                Les paiements s'effectuent exclusivement par voie électronique (virement Interac / <em>e-Transfer</em>) à l'adresse suivante : <strong>jc@jc-solutio.ca</strong>
+            </div>
+        </section>
+
+        <a href="index.html" class="retour-accueil">&larr; Retour à l'accueil</a>
+
+        <footer>
+            &copy; 2026 JC-SolutiO — Tous droits réservés.
+        </footer>
+    </div>
+
+</body>
+</html>
