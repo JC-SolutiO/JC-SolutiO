@@ -441,10 +441,10 @@
             </p>
 
             <p><strong>Horaire de rendez-vous :</strong><br>
-            Présentement, les rendez-vous sont disponibles les jeudis et dimanches aux heures suivantes :</p>
+            Présentement, les rendez-vous (d’une durée de 50 minutes) sont disponibles les jeudis et dimanches aux heures suivantes :</p>
             <ul class="liste-horaire">
-                <li><strong>Jeudi :</strong> 9 h à 10 h, midi à 13 h, et 15 h à 16 h</li>
-                <li><strong>Dimanche :</strong> midi à 13 h, et 15 h à 16 h</li>
+                <li><strong>Jeudi :</strong> 9 h à 9 h 50, midi à 12 h 50, et 15 h à 15 h 50</li>
+                <li><strong>Dimanche :</strong> midi à 12 h 50, et 15 h à 15 h 50</li>
             </ul>
 
             <div class="grille-rdv">
@@ -459,7 +459,7 @@
                 </div>
 
                 <div class="bloc-selecteur">
-                    <label for="select-plage"><strong>Plage horaire :</strong></label><br>
+                    <label for="select-plage"><strong>Plage horaire (50 minutes) :</strong></label><br>
                     <select id="select-plage" class="champ-select">
                         <option value="">-- Choisir d'abord la date --</option>
                     </select>
@@ -500,13 +500,13 @@
     <script>
         const plagesParJournee = {
             "Jeudi": [
-                "9 h à 10 h",
-                "Midi à 13 h",
-                "15 h à 16 h"
+                "9 h à 9 h 50",
+                "Midi à 12 h 50",
+                "15 h à 15 h 50"
             ],
             "Dimanche": [
-                "Midi à 13 h",
-                "15 h à 16 h"
+                "Midi à 12 h 50",
+                "15 h à 15 h 50"
             ]
         };
 
@@ -601,9 +601,9 @@
                 valeurChamp("champ-courriel"),
                 "",
                 "Horaire de rendez-vous :",
-                "Présentement, les rendez-vous sont disponibles les jeudis et dimanches aux heures suivantes :",
-                "- Jeudi : 9 h à 10 h, midi à 13 h, et 15 h à 16 h",
-                "- Dimanche : midi à 13 h, et 15 h à 16 h",
+                "Présentement, les rendez-vous (d’une durée de 50 minutes) sont disponibles les jeudis et dimanches aux heures suivantes :",
+                "- Jeudi : 9 h à 9 h 50, midi à 12 h 50, et 15 h à 15 h 50",
+                "- Dimanche : midi à 12 h 50, et 15 h à 15 h 50",
                 "",
                 "Date et heure choisies :",
                 "Date : " + dateChoisie + " | Journée : " + journeeChoisie + " | Plage : " + plageChoisie,
