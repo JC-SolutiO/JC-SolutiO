@@ -498,6 +498,8 @@
     </div>
 
     <script>
+        let creneauxReserves = [];
+
         const plagesParJournee = {
             "Jeudi": [
                 "9 h à 9 h 50",
@@ -520,7 +522,31 @@
             "Samedi"
         ];
 
-        function remplirPlages(journee) {
+        function chargerDisponibilites() {
+            fetch("disponibilites.json?v=" + Date.now())
+                .then(function(reponse) {
+                    if (!reponse.ok) throw new Error("Fichier non disponible");
+                    return reponse.json();
+                })
+                .then(function(donnees) {
+                    if (Array.isArray(donnees.creneauxReserves)) {
+                        creneauxReserves = donnees.creneauxReserves;
+                    }
+                    if (document.getElementById("champ-date").value) {
+                        synchroniserDate();
+                    }
+                })
+                .catch(function() {
+                    creneauxReserves = [];
+                });
+        }
+
+        function estReserve(dateStr, plage) {
+            if (!dateStr) return false;
+            return creneauxReserves.includes(dateStr + "|" + plage);
+        }
+
+        function remplirPlages(journee, dateStr) {
             const selectPlage = document.getElementById("select-plage");
             selectPlage.innerHTML = "";
 
@@ -539,8 +565,14 @@
 
             plagesParJournee[journee].forEach(function(plage) {
                 const opt = document.createElement("option");
-                opt.value = plage;
-                opt.textContent = plage;
+                if (estReserve(dateStr, plage)) {
+                    opt.value = "";
+                    opt.textContent = plage + " (Non disponible)";
+                    opt.disabled = true;
+                } else {
+                    opt.value = plage;
+                    opt.textContent = plage;
+                }
                 selectPlage.appendChild(opt);
             });
         }
@@ -566,10 +598,10 @@
 
             if (nomJour === "Jeudi" || nomJour === "Dimanche") {
                 avertissement.style.display = "none";
-                remplirPlages(nomJour);
+                remplirPlages(nomJour, valDate);
             } else {
                 avertissement.style.display = "block";
-                remplirPlages(null);
+                remplirPlages(null, valDate);
             }
         }
 
@@ -624,6 +656,8 @@
                 }, 4000);
             });
         }
+
+        chargerDisponibilites();
     </script>
 
 </body>
