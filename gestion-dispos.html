@@ -180,3 +180,424 @@
 
         .btn-primaire:hover {
             background-color: #13364b;
+        }
+
+        .btn-rouge {
+            background-color: var(--rouge-accent);
+            color: #ffffff;
+        }
+
+        .btn-rouge:hover {
+            background-color: #9b0e18;
+        }
+
+        .btn-secondaire {
+            background-color: #eef4f8;
+            color: var(--bleu-principal);
+        }
+
+        .btn-secondaire:hover {
+            background-color: #dce8f2;
+        }
+
+        .liste-reserves {
+            list-style: none;
+            padding: 0;
+            margin: 14px 0;
+        }
+
+        .item-reserve {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-left: 5px solid var(--rouge-accent);
+            padding: 10px 16px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            font-family: var(--fonte-originale);
+            font-size: 0.95rem;
+        }
+
+        .btn-supprimer {
+            background: none;
+            border: none;
+            color: var(--rouge-accent);
+            font-weight: 800;
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .btn-supprimer:hover {
+            background-color: #fde8ea;
+        }
+
+        .zone-json {
+            width: 100%;
+            min-height: 120px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 0.9rem;
+            padding: 12px;
+            border: 1px solid #94a3b8;
+            border-radius: 6px;
+            background-color: #f8fafc;
+            box-sizing: border-box;
+            margin-top: 8px;
+        }
+
+        .rang-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        .message-etat {
+            font-family: var(--fonte-originale);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #198754;
+            display: none;
+        }
+
+        .retour-accueil {
+            display: inline-block;
+            margin-top: 30px;
+            text-decoration: none;
+            font-family: var(--fonte-originale);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--bleu-principal);
+            background-color: #eef4f8;
+            padding: 8px 14px;
+            border-radius: 6px;
+        }
+
+        .retour-accueil:hover {
+            background-color: var(--bleu-principal);
+            color: #ffffff;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 45px;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+            color: var(--gris-doux);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .conteneur {
+                margin: 15px;
+                padding: 25px 20px;
+            }
+            .rangee-haut {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="conteneur">
+        <div class="rangee-haut">
+            <img src="Logo JC-Solutio_3.jpeg" alt="Logo JC-SolutiO" class="logo-image">
+            <a href="index.html" class="titre-site">JC-SolutiO</a>
+        </div>
+
+        <h1>Gestion des disponibilités</h1>
+
+        <div class="encadre-info">
+            <strong>Mode d'emploi :</strong> Sélectionnez une date au calendrier, cochez les plages horaires non disponibles, ajoutez-les à la liste, puis téléchargez ou copiez le contenu de <strong>disponibilites.json</strong> pour mettre à jour votre dépôt GitHub.
+        </div>
+
+        <h2>1. Importer une liste existante (optionnel)</h2>
+        <div class="rang-actions">
+            <label class="btn btn-secondaire" for="fichier-json">📂 Charger un fichier disponibilites.json</label>
+            <input type="file" id="fichier-json" accept=".json,application/json" style="display: none;" onchange="importerFichierJson(event)">
+            <button type="button" class="btn btn-secondaire" onclick="chargerDepuisSite()">🔄 Lire disponibilites.json en ligne</button>
+            <span id="msg-import" class="message-etat">✓ Liste chargée.</span>
+        </div>
+
+        <h2>2. Sélectionner une date et les plages non disponibles</h2>
+        <div class="grille-date">
+            <div class="bloc-champ">
+                <label for="date-indispo">Date :</label>
+                <input type="date" id="date-indispo" class="champ-entree" onchange="mettreAJourPlagesAdmin()">
+            </div>
+
+            <div class="bloc-champ">
+                <label for="jour-indispo">Journée :</label>
+                <input type="text" id="jour-indispo" class="champ-entree champ-verrouille" value="-- Choisir une date --" readonly tabindex="-1">
+            </div>
+        </div>
+
+        <div id="alerte-jour-admin" class="alerte-rouge">
+            ⚠ Cette date n'est ni un jeudi ni un dimanche. Aucune plage standard n'est prévue pour cette journée.
+        </div>
+
+        <div id="conteneur-plages" class="liste-plages"></div>
+
+        <button type="button" class="btn btn-rouge" onclick="ajouterCreneauxSelectionnes()">+ Marquer les plages cochées comme non disponibles</button>
+
+        <h2>3. Créneaux actuellement marqués non disponibles</h2>
+        <ul id="liste-reserves" class="liste-reserves"></ul>
+
+        <h2>4. Exporter pour GitHub (<code>disponibilites.json</code>)</h2>
+        <textarea id="sortie-json" class="zone-json" aria-label="Contenu JSON pour disponibilites.json"></textarea>
+
+        <div class="rang-actions">
+            <button type="button" class="btn btn-primaire" onclick="telechargerJson()">⬇ Télécharger disponibilites.json</button>
+            <button type="button" class="btn btn-secondaire" onclick="copierJson()">📋 Copier le JSON</button>
+            <button type="button" class="btn btn-secondaire" onclick="appliquerJsonManuel()">↻ Actualiser la liste depuis le texte</button>
+            <span id="msg-export" class="message-etat">✓ Action effectuée.</span>
+        </div>
+
+        <a href="index.html" class="retour-accueil">&larr; Retour à l'accueil</a>
+
+        <footer>
+            &copy; 2026 JC-SolutiO — Outil interne de gestion des disponibilités.
+        </footer>
+    </div>
+
+    <script>
+        const plagesParJournee = {
+            "Jeudi": [
+                "9 h à 9 h 50",
+                "Midi à 12 h 50",
+                "15 h à 15 h 50"
+            ],
+            "Dimanche": [
+                "Midi à 12 h 50",
+                "15 h à 15 h 50"
+            ]
+        };
+
+        const nomsJours = [
+            "Dimanche",
+            "Lundi",
+            "Mardi",
+            "Mercredi",
+            "Jeudi",
+            "Vendredi",
+            "Samedi"
+        ];
+
+        let creneaux = [];
+
+        function afficherMessage(id, texte) {
+            const el = document.getElementById(id);
+            el.textContent = texte;
+            el.style.display = "inline";
+            setTimeout(function() {
+                el.style.display = "none";
+            }, 3500);
+        }
+
+        function mettreAJourPlagesAdmin() {
+            const valDate = document.getElementById("date-indispo").value;
+            const champJour = document.getElementById("jour-indispo");
+            const alerte = document.getElementById("alerte-jour-admin");
+            const conteneur = document.getElementById("conteneur-plages");
+
+            conteneur.innerHTML = "";
+
+            if (!valDate) {
+                champJour.value = "-- Choisir une date --";
+                alerte.style.display = "none";
+                return;
+            }
+
+            const parties = valDate.split("-");
+            const dateObj = new Date(parseInt(parties[0], 10), parseInt(parties[1], 10) - 1, parseInt(parties[2], 10));
+            const nomJour = nomsJours[dateObj.getDay()];
+            champJour.value = nomJour;
+
+            if (!plagesParJournee[nomJour]) {
+                alerte.style.display = "block";
+                return;
+            }
+
+            alerte.style.display = "none";
+
+            plagesParJournee[nomJour].forEach(function(plage, index) {
+                const cle = valDate + "|" + plage;
+                const dejaPresent = creneaux.includes(cle);
+
+                const etiquette = document.createElement("label");
+                etiquette.className = "carte-plage";
+
+                const caseCocher = document.createElement("input");
+                caseCocher.type = "checkbox";
+                caseCocher.value = plage;
+                caseCocher.id = "plage-admin-" + index;
+                if (dejaPresent) {
+                    caseCocher.checked = true;
+                }
+
+                const texte = document.createElement("span");
+                texte.textContent = plage + (dejaPresent ? " (déjà non disponible)" : "");
+
+                etiquette.appendChild(caseCocher);
+                etiquette.appendChild(texte);
+                conteneur.appendChild(etiquette);
+            });
+        }
+
+        function ajouterCreneauxSelectionnes() {
+            const valDate = document.getElementById("date-indispo").value;
+            if (!valDate) {
+                alert("Veuillez d'abord choisir une date.");
+                return;
+            }
+
+            const cases = document.querySelectorAll('#conteneur-plages input[type="checkbox"]:checked');
+            cases.forEach(function(caseEl) {
+                const cle = valDate + "|" + caseEl.value;
+                if (!creneaux.includes(cle)) {
+                    creneaux.push(cle);
+                }
+            });
+
+            creneaux.sort();
+            rendreListeEtJson();
+            mettreAJourPlagesAdmin();
+        }
+
+        function supprimerCreneau(index) {
+            creneaux.splice(index, 1);
+            rendreListeEtJson();
+            mettreAJourPlagesAdmin();
+        }
+
+        function rendreListeEtJson() {
+            const liste = document.getElementById("liste-reserves");
+            liste.innerHTML = "";
+
+            if (creneaux.length === 0) {
+                const vide = document.createElement("li");
+                vide.style.fontFamily = "var(--fonte-originale)";
+                vide.style.color = "var(--gris-doux)";
+                vide.textContent = "Aucun créneau marqué comme non disponible pour le moment.";
+                liste.appendChild(vide);
+            } else {
+                creneaux.forEach(function(cle, idx) {
+                    const parties = cle.split("|");
+                    const dateStr = parties[0];
+                    const plageStr = parties[1] || "";
+
+                    const li = document.createElement("li");
+                    li.className = "item-reserve";
+
+                    const span = document.createElement("span");
+                    span.textContent = dateStr + " — " + plageStr;
+
+                    const btnSuppr = document.createElement("button");
+                    btnSuppr.type = "button";
+                    btnSuppr.className = "btn-supprimer";
+                    btnSuppr.title = "Retirer ce créneau";
+                    btnSuppr.textContent = "×";
+                    btnSuppr.onclick = function() {
+                        supprimerCreneau(idx);
+                    };
+
+                    li.appendChild(span);
+                    li.appendChild(btnSuppr);
+                    liste.appendChild(li);
+                });
+            }
+
+            const objetJson = {
+                creneauxReserves: creneaux
+            };
+            document.getElementById("sortie-json").value = JSON.stringify(objetJson, null, 2);
+        }
+
+        function telechargerJson() {
+            const contenu = document.getElementById("sortie-json").value;
+            const blob = new Blob([contenu], { type: "application/json;charset=utf-8" });
+            const url = URL.createObjectURL(blob);
+            const lien = document.createElement("a");
+            lien.href = url;
+            lien.download = "disponibilites.json";
+            document.body.appendChild(lien);
+            lien.click();
+            document.body.removeChild(lien);
+            URL.revokeObjectURL(url);
+            afficherMessage("msg-export", "✓ Fichier disponibilites.json téléchargé.");
+        }
+
+        function copierJson() {
+            const contenu = document.getElementById("sortie-json").value;
+            navigator.clipboard.writeText(contenu).then(function() {
+                afficherMessage("msg-export", "✓ JSON copié dans le presse-papiers.");
+            });
+        }
+
+        function appliquerJsonManuel() {
+            try {
+                const brut = JSON.parse(document.getElementById("sortie-json").value);
+                if (Array.isArray(brut.creneauxReserves)) {
+                    creneaux = brut.creneauxReserves.slice().sort();
+                    rendreListeEtJson();
+                    mettreAJourPlagesAdmin();
+                    afficherMessage("msg-export", "✓ Liste mise à jour.");
+                } else {
+                    alert("Le format JSON doit contenir un tableau \"creneauxReserves\".");
+                }
+            } catch (e) {
+                alert("JSON invalide. Vérifiez la syntaxe.");
+            }
+        }
+
+        function importerFichierJson(event) {
+            const fichier = event.target.files[0];
+            if (!fichier) return;
+            const lecteur = new FileReader();
+            lecteur.onload = function(e) {
+                try {
+                    const donnees = JSON.parse(e.target.result);
+                    if (Array.isArray(donnees.creneauxReserves)) {
+                        creneaux = donnees.creneauxReserves.slice().sort();
+                        rendreListeEtJson();
+                        mettreAJourPlagesAdmin();
+                        afficherMessage("msg-import", "✓ Fichier importé.");
+                    }
+                } catch (err) {
+                    alert("Impossible de lire ce fichier JSON.");
+                }
+            };
+            lecteur.readAsText(fichier);
+        }
+
+        function chargerDepuisSite() {
+            fetch("disponibilites.json?v=" + Date.now())
+                .then(function(rep) {
+                    if (!rep.ok) throw new Error();
+                    return rep.json();
+                })
+                .then(function(donnees) {
+                    if (Array.isArray(donnees.creneauxReserves)) {
+                        creneaux = donnees.creneauxReserves.slice().sort();
+                        rendreListeEtJson();
+                        mettreAJourPlagesAdmin();
+                        afficherMessage("msg-import", "✓ Chargé depuis disponibilites.json.");
+                    }
+                })
+                .catch(function() {
+                    alert("Aucun fichier disponibilites.json trouvé à côté de cette page.");
+                });
+        }
+
+        rendreListeEtJson();
+    </script>
+
+</body>
+</html>
